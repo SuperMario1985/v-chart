@@ -1,0 +1,386 @@
+.home {
+    position: relative;
+    width: 1080px;
+    height: 1280px;
+    margin: 0 auto;
+    .circle-progress {
+        width: 120px;
+        height: 120px;
+        position: relative;
+        margin-bottom: 5px;
+        .wrapper {
+            width: 50%;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            overflow: hidden;
+            .circle-progress-bar {
+                width: 200%;
+                height: 100%;
+                box-sizing: border-box;
+                border: 12px solid #999;
+                border-radius: 50%;
+                position: absolute;
+                top: 0;
+                transform: rotate(45deg);
+            }
+            .circle-right {
+                border-top: 12px solid green;
+                border-right: 12px solid green;
+                right: 0;
+            }
+            .circle-left {
+                border-bottom: 12px solid green;
+                border-left: 12px solid green;
+                left: 0;
+            }
+        }
+        .right {
+            right: 1px;
+        }
+        .left {
+            left: 0;
+        }
+        .wrapper-back {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            border-radius: 50%;
+            border: 12px solid #eee;
+        }
+    }
+    .liquid-fill {
+        width: 200px;
+        height: 200px;
+    }
+    background: url("../assets/images/display/bg.png") center center no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    .header-page {
+        text-align: center;
+        font-size: 49px;
+        line-height: 89px;
+        color: #fff;
+        height: 83px;
+        background: url("../assets/images/display/bg-header.png") center center no-repeat;
+        background-size: 100% 100%;
+    }
+    .main-box {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        margin: 0 14px 12px 24px;
+        padding: 0 25px;
+        background: url("../assets/images/display/bg-content.png") center center no-repeat;
+        background-size: 100% 100%;
+        .time-page {
+            height: 42px;
+            text-align: center;
+            font-size: 30px;
+            font-family: Microsoft YaHei;
+            font-weight: 400;
+            color: rgba(255, 255, 255, 1);
+            line-height: 42px;
+            color: #2983ff;
+        }
+        .weather-page {
+            display: flex;
+            height: 180px;
+            background: url("../assets/images/display/bg-wether.png") center center no-repeat;
+            background-size: 100% 100%;
+            .weather-info-left {
+                position: relative;
+                flex: 1;
+                display: flex;
+                & > img {
+                    width: 93px;
+                    height: 84px;
+                    margin-top: 60px;
+                    margin-left: 24px;
+                }
+                .p1 {
+                    padding-top: 30px;
+                    padding-left: 26px;
+                    h5 {
+                        font-size: 26px;
+                        font-family: Microsoft YaHei;
+                        font-weight: 400;
+                        color: rgba(255, 255, 255, 1);
+                        line-height: 26px;
+                    }
+                    p {
+                        font-size: 75px;
+                        font-family: Microsoft YaHei;
+                        font-weight: bold;
+                        color: rgba(255, 255, 255, 1);
+                        line-height: 110px;
+                        span {
+                            display: inline-block;
+                            font-size: 31px;
+                            font-family: Microsoft YaHei;
+                            font-weight: bold;
+                            color: rgba(255, 255, 255, 1);
+                            line-height: 88px;
+                            vertical-align: top;
+                        }
+                    }
+                }
+                .p2 {
+                    padding-top: 80px;
+                    padding-left: 18px;
+                    h6 {
+                        font-size: 26px;
+                        font-family: Microsoft YaHei;
+                        font-weight: 400;
+                        color: rgba(255, 255, 255, 1);
+                        line-height: 36px;
+                    }
+                    p {
+                        font-size: 17px;
+                        font-family: Microsoft YaHei;
+                        color: rgba(255, 255, 255, 1);
+                        line-height: 20px;
+                    }
+                }
+                .right-line {
+                    position: absolute;
+                    right: 30px;
+                    top: 40px;
+                    width: 2px;
+                    height: 99px;
+                    background: rgba(148, 177, 235, 1);
+                }
+            }
+            .weather-info-right {
+                flex: 1;
+                h6 {
+                    display: inline-block;
+                    height: 26px;
+                    line-height: 26px;
+                    font-size: 14px;
+                    font-family: Microsoft YaHei;
+                    font-weight: 400;
+                    color: rgba(160, 191, 251, 1);
+                    background: rgba(0, 0, 0, 0.2);
+                    border-radius: 13px;
+                    padding: 0 15px;
+                    margin-top: 10px;
+                    i {
+                        display: inline-block;
+                        width: 14px;
+                        height: 13px;
+                        background: url("../assets/images/display/icom-home.png") center center no-repeat;
+                        background-size: 100% 100%;
+                        margin-right: 6px;
+                    }
+                }
+                .weather-list {
+                    display: flex;
+                    li {
+                        flex: 1;
+                        display: flex;
+                        flex-direction: column;
+                        margin-right: 32px;
+                        text-align: center;
+                        span {
+                            font-size: 16px;
+                            font-family: Microsoft YaHei;
+                            font-weight: 300;
+                            color: rgba(255, 255, 255, 1);
+                            line-height: 20px;
+                            padding-top: 10px;
+                        }
+                        img {
+                            width: 45px;
+                            height: 44px;
+                        }
+                        strong {
+                            font-size: 17px;
+                            font-family: Microsoft YaHei;
+                            font-weight: 400;
+                            color: rgba(255, 255, 255, 1);
+                            line-height: 49px;
+                        }
+                    }
+                }
+            }
+        }
+        .feature-page {
+            flex: 1;
+            .rain {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+                .top {
+                    flex: 1;
+                    display: flex;
+                    .left {
+                        flex: 1;
+                        background: url("../assets/images/display/bg-feature.png") center center no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .right {
+                        flex: 1;
+                        background: url("../assets/images/display/bg-feature.png") center center no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+                .bottom {
+                    flex: 1;
+                    display: flex;
+                    .left {
+                        flex: 1;
+                        background: url("../assets/images/display/bg-feature.png") center center no-repeat;
+                        background-size: 100% 100%;
+                    }
+                    .right {
+                        flex: 1;
+                        background: url("../assets/images/display/bg-feature.png") center center no-repeat;
+                        background-size: 100% 100%;
+                    }
+                }
+                h5 {
+                    text-align: center;
+                    font-size: 18px;
+                    font-family: Adobe Heiti Std;
+                    font-weight: bold;
+                    color: rgba(0, 228, 255, 1);
+                    line-height: 28px;
+                }
+            }
+            .login {
+                height: 100%;
+                display: flex;
+                flex-direction: column;
+                .top {
+                    flex: 7;
+                    text-align: center;
+                    .log-box {
+                        display: inline-block;
+                        width: 256px;
+                        height: 356px;
+                        vertical-align: middle;
+                        background: rgba(22, 214, 255, 0.08);
+                        margin: 0 60px;
+                        margin-top: 10%;
+                        .img-box {
+                            text-align: center;
+                            img {
+                                width: 50%;
+                                height: auto;
+                                margin-top: 56px;
+                            }
+                        }
+                        a {
+                            padding-top: 32px;
+                            text-align: center;
+                            display: block;
+                            font-size: 37px;
+                            font-family: Microsoft YaHei;
+                            font-weight: bold;
+                            color: #4ca2ff;
+                            line-height: 40px;
+                        }
+                    }
+                }
+                .bottom {
+                    flex: 3;
+                    text-align: center;
+                    .log-box {
+                        display: inline-block;
+                        width: 284px;
+                        height: 118px;
+                        vertical-align: middle;
+                        background: rgba(22, 214, 255, 0.08);
+                        margin-top: 5%;
+                        padding-top: 15px;
+                        img {
+                            width: 60px;
+                            height: 84px;
+                            margin-right: 18px;
+                        }
+                        a {
+                            display: inline-block;
+                            font-size: 31px;
+                            font-family: Microsoft YaHei;
+                            font-weight: bold;
+                            color: rgba(76, 162, 255, 1);
+                            line-height: 84px;
+                        }
+                    }
+                }
+            }
+            .video-box {
+                height: 100%;
+                padding: 45px 0;
+                img {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        .footer-page {
+            padding-bottom: 20px;
+            ul {
+                li {
+                    display: flex;
+                    align-items: center;
+                    padding-bottom: 10px;
+                    i {
+                        width: 30px;
+                        height: 24px;
+                        background: url("../assets/images/display/icon-txt.png") center center no-repeat;
+                        background-size: 100% 100%;
+                        margin-right: 16px;
+                    }
+                    span {
+                        flex: 1;
+                        line-height: 40px;
+                        font-size: 25px;
+                        font-family: Microsoft YaHei;
+                        background: rgba(67, 154, 255, 0.2);
+                        color: #4ca2ff;
+                    }
+                }
+            }
+        }
+    }
+    .nav-box {
+        position: absolute;
+        left: 14px;
+        top: 40px;
+        z-index: 10;
+        span {
+            display: inline-block;
+            width: 89px;
+            height: 34px;
+            line-height: 34px;
+            background: url("../assets/images/display/bg-button.png") center center no-repeat;
+            background-size: 100% 100%;
+            text-align: center;
+            color: #ffffff;
+        }
+    }
+    .go-login {
+        position: absolute;
+        width: 37px;
+        height: 219px;
+        background: url("../assets/images/display/bg-login.png") center center no-repeat;
+        background-size: 100% 100%;
+        left: 0px;
+        top: 10px;
+        z-index: 10;
+        padding-top: 68px;
+        span {
+            display: inline-block;
+            width: 100%;
+            font-size: 20px;
+            font-family: Microsoft YaHei;
+            font-weight: bold;
+            color: rgba(255, 255, 255, 1);
+            font-size: 24px;
+            text-align: center;
+        }
+    }
+}
