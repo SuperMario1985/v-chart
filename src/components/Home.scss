@@ -236,6 +236,12 @@
                         flex: 1;
                         background: url("../assets/images/display/bg-feature.png") center center no-repeat;
                         background-size: 100% 100%;
+                        .solar-energy {
+                            width: 100%;
+                            height: 100%;
+                            background: url("../assets/images/display/demo2.png") center 50px no-repeat;
+                            background-size: 421px 244px;
+                        }
                     }
                 }
                 .bottom {
@@ -246,23 +252,33 @@
                         background: url("../assets/images/display/bg-feature.png") center center no-repeat;
                         background-size: 100% 100%;
                         .check {
-                            .check-box {
-                                display: flex;
-                            }
-                            .check-left {
-                                flex: 1;
-                                text-align: center;
-                            }
-                            .check-right {
-                                flex: 1;
-                                text-align: center;
-                            }
+                            width: 100%;
+                            height: 100%;
+                            background: url("../assets/images/display/demo.png") center 20px no-repeat;
+                            background-size: 398px 294px;
+                            // .check-box {
+                            //     display: flex;
+                            // }
+                            // .check-left {
+                            //     flex: 1;
+                            //     text-align: center;
+                            // }
+                            // .check-right {
+                            //     flex: 1;
+                            //     text-align: center;
+                            // }
                         }
                     }
                     .right {
                         flex: 1;
                         background: url("../assets/images/display/bg-feature.png") center center no-repeat;
                         background-size: 100% 100%;
+                        .device-status {
+                            width: 100%;
+                            height: 100%;
+                            background: url("../assets/images/display/demo3.png") center 30px no-repeat;
+                            background-size: 421px 244px;
+                        }
                     }
                 }
                 h5 {
@@ -283,8 +299,8 @@
                     text-align: center;
                     .log-box {
                         display: inline-block;
-                        width: 256px;
-                        height: 356px;
+                        width: 343px;
+                        height: 456px;
                         vertical-align: middle;
                         background: rgba(22, 214, 255, 0.08);
                         margin: 0 60px;
@@ -293,7 +309,7 @@
                         .img-box {
                             text-align: center;
                             img {
-                                width: 50%;
+                                width: 163px;
                                 height: auto;
                                 margin-top: 56px;
                             }
@@ -312,20 +328,21 @@
                 }
                 .bottom {
                     flex: 3;
-                    text-align: center;
                     .log-box {
                         display: inline-block;
-                        width: 284px;
-                        height: 118px;
+                        width: 338px;
+                        height: 140px;
                         vertical-align: middle;
                         background: rgba(22, 214, 255, 0.08);
                         margin-top: 5%;
                         padding-top: 15px;
+                        margin-left: 90px;
                         cursor: pointer;
                         img {
-                            width: 60px;
-                            height: 84px;
+                            width: 72px;
+                            height: 100px;
                             margin-right: 18px;
+                            margin-left: 20px;
                         }
                         a {
                             display: inline-block;
@@ -333,7 +350,7 @@
                             font-family: Microsoft YaHei;
                             font-weight: bold;
                             color: rgba(76, 162, 255, 1);
-                            line-height: 84px;
+                            vertical-align: middle;
                         }
                     }
                 }
@@ -441,23 +458,6 @@
             }
         }
     }
-    .nav-box {
-        position: absolute;
-        left: 14px;
-        top: 40px;
-        z-index: 10;
-        span {
-            display: inline-block;
-            width: 89px;
-            height: 34px;
-            line-height: 34px;
-            background: url("../assets/images/display/bg-button.png") center center no-repeat;
-            background-size: 100% 100%;
-            text-align: center;
-            color: #ffffff;
-            cursor: pointer;
-        }
-    }
     .go-login {
         position: absolute;
         width: 37px;
@@ -478,6 +478,48 @@
             color: rgba(255, 255, 255, 1);
             line-height: 24px;
             text-align: center;
+        }
+    }
+    .login-out {
+        position: absolute;
+        left: 90px;
+        top: 40px;
+        z-index: 10;
+        width: 134px;
+        height: 55px;
+        line-height: 55px;
+        background: linear-gradient(0deg, rgba(27, 147, 216, 1) 0%, rgba(17, 33, 94, 1) 100%);
+        border: 2px solid rgba(27, 147, 216, 1);
+        border-radius: 8px;
+        text-align: center;
+        font-size: 30px;
+        font-family: Microsoft YaHei;
+        font-weight: bold;
+        color: rgba(150, 200, 255, 1);
+        cursor: pointer;
+    }
+    .charge-box {
+        position: absolute;
+        right: 90px;
+        top: 40px;
+        z-index: 10;
+        display: flex;
+        width: 134px;
+        height: 55px;
+        font-size: 28px;
+        line-height: 53px;
+        font-family: DS-Digital;
+        font-weight: bold;
+        color: rgba(147, 255, 21, 1);
+        span {
+            margin-right: 4px;
+        }
+        i {
+            display: inline-block;
+            width: 49px;
+            height: 53px;
+            background: url("../assets/images/display/icon-charge.gif") center center no-repeat;
+            background-size: 100% 100%;
         }
     }
 }

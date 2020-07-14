@@ -138,13 +138,23 @@
             </div>
             <div class="right">
               <h5>照明、太阳能</h5>
+              <div class="solar-energy">
+                <!-- <div class="img-box">
+                  <img src="../assets/images/display/sun.png" alt="">
+                  <div class="number-item">
+
+                  </div>
+                  <h5></h5>
+                  <div></div>
+                </div>-->
+              </div>
             </div>
           </div>
           <div class="bottom">
             <div class="left">
               <h5>水质检测</h5>
               <div class="check">
-                <div class="check-box">
+                <!-- <div class="check-box">
                   <div class="check-left">
                     <div class="circle-progress">
                       <div class="circle-bg"></div>
@@ -167,11 +177,12 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>-->
               </div>
             </div>
             <div class="right">
               <h5>设备状态</h5>
+              <div class="device-status"></div>
             </div>
           </div>
         </div>
@@ -192,16 +203,12 @@
           </li>
         </ul>
         <img v-if="loginInfo.status !==1" src="../assets/images/display/erweima.png" alt />
+        <img v-if="loginInfo.status ===1" src="../assets/images/display/icon-inter.jpg" alt @click="goLoginPage" />
       </div>
     </div>
-    <div class="nav-box" v-if="loginInfo.status===2">
-      <span @click="goScreen">返回</span>
-      <span @click="goHomePage">主页</span>
-    </div>
-    <div class="go-login" @click="goLoginPage" v-if="loginInfo.status===1">
-      <span>登</span>
-      <span>录</span>
-    </div>
+    <div v-if="loginInfo.status===2" class="login-out" @click="loginInfo.status=1">返回</div>
+    <div v-if="loginInfo.status===3" class="login-out" @click="loginInfo.status=2">退出</div>
+    <div class="charge-box"><span>85%</span><i></i></div>
   </div>
 </template>
 
@@ -213,7 +220,7 @@ export default {
     return {
       loginInfo: {
         // 1:屏保；2：登录页；3：已经登录
-        status: 3,
+        status: 1,
         // 1:停止；2：手动；3：自动
         runningStatus: 2
       },
@@ -366,8 +373,8 @@ export default {
   created: function() {},
   mounted: function() {
     let that = this;
-    this.setCircle1(0.33);
-    this.setCircle2(0.63);
+    // this.setCircle1(0.33);
+    // this.setCircle2(0.63);
     // setTimeout(() => {
     //   that.chartData.rows[0].percent = 0.8;
     // }, 5000);
