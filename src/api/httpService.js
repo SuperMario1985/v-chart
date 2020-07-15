@@ -1,30 +1,50 @@
 import axios from "axios";
 let host = 'http://39.105.94.5:8092';
-function login(loginInfo, successFun, errorFun) {
+let httpServe = axios.create();
+function test1() {
     let resultInfo = {
         success: false,
         data: null,
         msg: ''
     }
     httpServe({
-        method: "post",
-        url: host + "/api/v1/capi/storeDetail",
-        data: loginInfo
+        method: "get",
+        url: "/dataProcess/GetRealTimeData"
     }).then(function (response) {
-        if (response.status === 200 &&
-            response.data &&
-            response.data.code === 10000) {
-            resultInfo.success = true;
-            resultInfo.data = response.data.data;
-            resultInfo.msg = response.data.msg;
-        } else {
-            resultInfo.msg = response.data.msg;
-        }
-        if (successFun) {
-            successFun(resultInfo);
-        }
+        let msg = JSON.stringify(msg);
+        alert(msg);
+    });
+}
+function test2() {
+    let resultInfo = {
+        success: false,
+        data: null,
+        msg: ''
+    }
+    httpServe({
+        method: "get",
+        url: "/dataProcess/WriteData?tag=M0.0&value=1"
+    }).then(function (response) {
+        let msg = JSON.stringify(msg);
+        alert(msg);
+    });
+}
+function test3() {
+    let resultInfo = {
+        success: false,
+        data: null,
+        msg: ''
+    }
+    httpServe({
+        method: "get",
+        url: "/dataProcess/GetHistoryData?startDate=2020-07-14&endDate=2020-07-15&interval=2"
+    }).then(function (response) {
+        let msg = JSON.stringify(msg);
+        alert(msg);
     });
 }
 export default {
-    login
+    test1,
+    test2,
+    test3
 }

@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
+import Demo from '@/components/Demo'
 
 Vue.use(Router)
 
@@ -8,12 +9,17 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home'
+      redirect: '/demo'
     },
     {
       path: '/home',
       name: 'Home',
       component: Home
+    },
+    {
+      path: '/demo',
+      name: 'Demo',
+      component: Demo
     },
     {
       path: '*',

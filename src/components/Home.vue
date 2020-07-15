@@ -5,7 +5,8 @@
       <div class="time-page">{{nowTime}}</div>
       <div class="weather-page">
         <div class="weather-info-left">
-          <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt />
+          <!-- <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt /> -->
+          <img src="../assets/images/display/weather-cloudy.png" alt />
           <div class="p1">
             <h5>今日天气</h5>
             <p>
@@ -26,40 +27,84 @@
           <ul class="weather-list">
             <li>
               <span>08:00</span>
-              <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt />
+              <!-- <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt /> -->
+              <img src="../assets/images/display/weather1.png" alt />
               <strong>{{randomArr2[0]}}℃</strong>
             </li>
             <li>
               <span>09:00</span>
-              <img :src="'/static/images/weather'+randomArr[1]+'.png'" alt />
+              <!-- <img :src="'/static/images/weather'+randomArr[1]+'.png'" alt /> -->
+              <img src="../assets/images/display/weather2.png" alt />
               <strong>{{randomArr2[1]}}℃</strong>
             </li>
             <li>
               <span>10:00</span>
-              <img :src="'/static/images/weather'+randomArr[2]+'.png'" alt />
+              <!-- <img :src="'/static/images/weather'+randomArr[2]+'.png'" alt /> -->
+              <img src="../assets/images/display/weather3.png" alt />
               <strong>{{randomArr2[2]}}℃</strong>
             </li>
             <li>
               <span>11:00</span>
-              <img :src="'/static/images/weather'+randomArr[3]+'.png'" alt />
+              <!-- <img :src="'/static/images/weather'+randomArr[3]+'.png'" alt /> -->
+              <img src="../assets/images/display/weather4.png" alt />
               <strong>{{randomArr2[3]}}℃</strong>
             </li>
             <li>
               <span>12:00</span>
-              <img :src="'/static/images/weather'+randomArr[4]+'.png'" alt />
+              <!-- <img :src="'/static/images/weather'+randomArr[4]+'.png'" alt /> -->
+              <img src="../assets/images/display/weather5.png" alt />
               <strong>{{randomArr2[4]}}℃</strong>
             </li>
             <li>
               <span>13:00</span>
-              <img :src="'/static/images/weather'+randomArr[5]+'.png'" alt />
+              <!-- <img :src="'/static/images/weather'+randomArr[5]+'.png'" alt /> -->
+              <img src="../assets/images/display/weather6.png" alt />
               <strong>{{randomArr2[5]}}℃</strong>
             </li>
           </ul>
         </div>
       </div>
       <div class="feature-page">
-        <div class="video-box" v-if="loginInfo.status === 1">
-          <img src="../assets/images/display/video.png" alt />
+        <div class="video-box" v-show="loginInfo.status === 1">
+          <!-- <img v-if="bannerStatus===2" src="../assets/images/display/video.png" alt /> -->
+          <video-player
+            class="video-player vjs-custom-skin"
+            ref="videoPlayer"
+            :playsinline="true"
+            :options="playerOptions"
+            @play="onPlay($event)"
+            @pause="onPause($event)"
+            @ended="onEended($event)"
+            v-if="bannerStatus===2"
+          ></video-player>
+          <el-carousel
+            height="666px"
+            :interval="3000"
+            indicator-position="outside"
+            arrow="never"
+            trigger="click"
+            @change="handleBannerChange"
+            v-if="bannerStatus===1"
+          >
+            <el-carousel-item>
+              <img src="../assets/images/banner/1.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/2.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/3.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/4.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/5.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/6.png" alt />
+            </el-carousel-item>
+          </el-carousel>
         </div>
         <div class="login" v-if="loginInfo.status === 2">
           <div class="top">
@@ -205,7 +250,7 @@
         <img v-if="loginInfo.status !==1" src="../assets/images/display/erweima.png" alt />
         <img
           v-if="loginInfo.status ===1"
-          src="../assets/images/display/icon-inter.jpg"
+          src="../assets/images/display/icon-inter.png"
           alt
           @click="goLoginPage"
         />
@@ -226,6 +271,8 @@ export default {
   name: "Home",
   data() {
     return {
+      // 轮播图的状态1：图片播放；2：视频播放
+      bannerStatus: 1,
       loginInfo: {
         // 1:屏保；2：登录页；3：已经登录
         status: 1,
@@ -297,10 +344,46 @@ export default {
         Math.ceil(Math.random() * 10 + 20),
         Math.ceil(Math.random() * 10 + 20),
         Math.ceil(Math.random() * 10 + 20)
-      ]
+      ],
+      // 播放器参数
+      playerOptions: {
+        height: 1000,
+        responsive: true,
+        playbackRates: [0.7, 1.0, 1.5, 2.0], //播放速度
+        autoplay: true, // 如果true,浏览器准备好时开始回放。
+        muted: true, // 默认情况下将会消除任何音频。
+        loop: false, // 导致视频一结束就重新开始。
+        preload: "auto", // 建议浏览器在<video>加载元素后是否应该开始下载视频数据。auto浏览器选择最佳行为,立即开始加载视频（如果浏览器支持）
+        language: "zh-CN",
+        aspectRatio: "16:11", // 将播放器置于流畅模式，并在计算播放器的动态大小时使用该值。值应该代表一个比例 - 用冒号分隔的两个数字（例如"16:9"或"4:3"）
+        fluid: true, // 当true时，Video.js player将拥有流体大小。换句话说，它将按比例缩放以适应其容器。
+        sources: [
+          {
+            type: "video/mp4",
+            src: "https://www.w3school.com.cn/example/html5/mov_bbb.mp4" //url地址
+          }
+        ],
+        poster:
+          "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1135012456,1998209284&fm=26&gp=0.jpg", // 你的封面地址
+        // width: document.documentElement.clientWidth,
+        notSupportedMessage: "此视频暂无法播放，请稍后再试", // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
+        controlBar: {
+          timeDivider: false,
+          durationDisplay: false,
+          remainingTimeDisplay: false,
+          fullscreenToggle: false // 全屏按钮
+        }
+      }
     };
   },
   methods: {
+    handleBannerChange(key1, key2) {
+      console.log(key1, key2);
+      if (key1 === 0) {
+        this.bannerStatus = 2;
+        this.$refs.videoPlayer.player.play();
+      }
+    },
     gradientToColor(color) {},
     setCircle1(percent) {
       var deg = percent * 360;
@@ -405,11 +488,23 @@ export default {
     clear() {
       clearInterval(this.nowTimes);
       this.nowTimes = null;
+    },
+    onPlay(event) {
+      this.$refs.videoPlayer.player.play();
+    },
+    onPause(event) {
+      console.log(event);
+    },
+    onEended(event) {
+      this.bannerStatus = 1;
     }
   },
   computed: {
     getNum() {
       return Math.ceil(Math.random() * 8);
+    },
+    player() {
+      return this.$refs.videoPlayer.player;
     }
   },
   created: function() {
