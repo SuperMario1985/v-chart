@@ -2,10 +2,10 @@
   <div class="home">
     <div class="header-page">雨水回用处理间</div>
     <div class="main-box">
-      <div class="time-page">2020年7月1日，星期一 上午08:00:01</div>
+      <div class="time-page">{{nowTime}}</div>
       <div class="weather-page">
         <div class="weather-info-left">
-          <img src="../assets/images/display/weather-cloudy.png" alt />
+          <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt />
           <div class="p1">
             <h5>今日天气</h5>
             <p>
@@ -15,7 +15,7 @@
           </div>
           <div class="p2">
             <h6>多云转小雨</h6>
-            <p>18-22℃</p>
+            <p>18-{{randomArr2[0]}}℃</p>
           </div>
           <div class="right-line"></div>
         </div>
@@ -26,33 +26,33 @@
           <ul class="weather-list">
             <li>
               <span>08:00</span>
-              <img src="../assets/images/display/weather01.png" alt />
-              <strong>22℃</strong>
+              <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt />
+              <strong>{{randomArr2[0]}}℃</strong>
             </li>
             <li>
               <span>09:00</span>
-              <img src="../assets/images/display/weather02.png" alt />
-              <strong>22℃</strong>
+              <img :src="'/static/images/weather'+randomArr[1]+'.png'" alt />
+              <strong>{{randomArr2[1]}}℃</strong>
             </li>
             <li>
               <span>10:00</span>
-              <img src="../assets/images/display/weather03.png" alt />
-              <strong>22℃</strong>
+              <img :src="'/static/images/weather'+randomArr[2]+'.png'" alt />
+              <strong>{{randomArr2[2]}}℃</strong>
             </li>
             <li>
               <span>11:00</span>
-              <img src="../assets/images/display/weather04.png" alt />
-              <strong>22℃</strong>
+              <img :src="'/static/images/weather'+randomArr[3]+'.png'" alt />
+              <strong>{{randomArr2[3]}}℃</strong>
             </li>
             <li>
               <span>12:00</span>
-              <img src="../assets/images/display/weather05.png" alt />
-              <strong>22℃</strong>
+              <img :src="'/static/images/weather'+randomArr[4]+'.png'" alt />
+              <strong>{{randomArr2[4]}}℃</strong>
             </li>
             <li>
               <span>13:00</span>
-              <img src="../assets/images/display/weather06.png" alt />
-              <strong>22℃</strong>
+              <img :src="'/static/images/weather'+randomArr[5]+'.png'" alt />
+              <strong>{{randomArr2[5]}}℃</strong>
             </li>
           </ul>
         </div>
@@ -203,12 +203,20 @@
           </li>
         </ul>
         <img v-if="loginInfo.status !==1" src="../assets/images/display/erweima.png" alt />
-        <img v-if="loginInfo.status ===1" src="../assets/images/display/icon-inter.jpg" alt @click="goLoginPage" />
+        <img
+          v-if="loginInfo.status ===1"
+          src="../assets/images/display/icon-inter.jpg"
+          alt
+          @click="goLoginPage"
+        />
       </div>
     </div>
     <div v-if="loginInfo.status===2" class="login-out" @click="loginInfo.status=1">返回</div>
     <div v-if="loginInfo.status===3" class="login-out" @click="loginInfo.status=2">退出</div>
-    <div class="charge-box"><span>85%</span><i></i></div>
+    <div class="charge-box">
+      <span>85%</span>
+      <i></i>
+    </div>
   </div>
 </template>
 
@@ -272,7 +280,24 @@ export default {
             }
           }
         }
-      } // 登录
+      },
+      nowTime: "",
+      randomArr: [
+        Math.ceil(Math.random() * 8),
+        Math.ceil(Math.random() * 8),
+        Math.ceil(Math.random() * 8),
+        Math.ceil(Math.random() * 8),
+        Math.ceil(Math.random() * 8),
+        Math.ceil(Math.random() * 8)
+      ],
+      randomArr2: [
+        Math.ceil(Math.random() * 10 + 20),
+        Math.ceil(Math.random() * 10 + 20),
+        Math.ceil(Math.random() * 10 + 20),
+        Math.ceil(Math.random() * 10 + 20),
+        Math.ceil(Math.random() * 10 + 20),
+        Math.ceil(Math.random() * 10 + 20)
+      ]
     };
   },
   methods: {
@@ -345,13 +370,26 @@ export default {
         new Date(timeStamp).getSeconds() < 10
           ? "0" + new Date(timeStamp).getSeconds()
           : new Date(timeStamp).getSeconds();
+      var day = new Date(timeStamp).getDay();
+      var weeks = new Array(
+        "星期日",
+        "星期一",
+        "星期二",
+        "星期三",
+        "星期四",
+        "星期五",
+        "星期六"
+      );
+      var week = weeks[day];
       this.nowTime =
         year +
         "年" +
         month +
         "月" +
         date +
-        "日" +
+        "日," +
+        " " +
+        week +
         " " +
         hh +
         ":" +
@@ -369,8 +407,14 @@ export default {
       this.nowTimes = null;
     }
   },
-  computed: {},
-  created: function() {},
+  computed: {
+    getNum() {
+      return Math.ceil(Math.random() * 8);
+    }
+  },
+  created: function() {
+    this.nowTimes();
+  },
   mounted: function() {
     let that = this;
     // this.setCircle1(0.33);

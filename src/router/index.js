@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from '@/components/Home'
-// import QuestionList from '@/components/QuestionList'
-// import QuestionDetail from '@/components/QuestionDetail'
 
 Vue.use(Router)
 
@@ -10,23 +8,13 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/home/1'
+      redirect: '/home'
     },
     {
-      path: '/home/:catId',
+      path: '/home',
       name: 'Home',
       component: Home
     },
-    // {
-    //   path: '/question-list/:catId/:classifyID/:slug?',
-    //   name: 'QuestionList',
-    //   component: QuestionList
-    // },
-    // {
-    //   path: '/question-detail/:catId/:classifyID/:id/:slug?',
-    //   name: 'QuestionDetail',
-    //   component: QuestionDetail
-    // },
     {
       path: '*',
       name: 'Home',

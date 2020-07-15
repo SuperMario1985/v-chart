@@ -11,7 +11,4 @@ export default {
 </script>
 
 <style lang='scss'>
-@import url("./assets/css/style.css");
-@import url("./assets/css/si-helpscout.css");
-
 </style>
