@@ -6,17 +6,20 @@
       <div class="weather-page">
         <div class="weather-info-left">
           <!-- <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt /> -->
-          <img src="../assets/images/display/weather-cloudy.png" alt />
+          <img v-if="nowWeatherInfo" :src="'/static/images/128/' +nowWeatherInfo.icon + '.png'" alt />
           <div class="p1">
             <h5>今日天气</h5>
-            <p>
-              21
+            <p v-if="nowWeatherInfo">
+              {{nowWeatherInfo.temp}}
               <span>℃</span>
             </p>
           </div>
           <div class="p2">
-            <h6>多云转小雨</h6>
-            <p>18-{{randomArr2[0]}}℃</p>
+            <h5>北京 昌平</h5>
+            <h6 v-if="nowWeatherInfo">{{nowWeatherInfo.text}}</h6>
+            <p
+              v-if="threeDaysWeatherInfo"
+            >{{threeDaysWeatherInfo[0].tempMin}}~{{threeDaysWeatherInfo[0].tempMax}}℃</p>
           </div>
           <div class="right-line"></div>
         </div>
@@ -24,49 +27,17 @@
           <h6>
             <i></i>小时预报
           </h6>
-          <ul class="weather-list">
-            <li>
-              <span>08:00</span>
-              <!-- <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt /> -->
-              <img src="../assets/images/display/weather1.png" alt />
-              <strong>{{randomArr2[0]}}℃</strong>
-            </li>
-            <li>
-              <span>09:00</span>
-              <!-- <img :src="'/static/images/weather'+randomArr[1]+'.png'" alt /> -->
-              <img src="../assets/images/display/weather2.png" alt />
-              <strong>{{randomArr2[1]}}℃</strong>
-            </li>
-            <li>
-              <span>10:00</span>
-              <!-- <img :src="'/static/images/weather'+randomArr[2]+'.png'" alt /> -->
-              <img src="../assets/images/display/weather3.png" alt />
-              <strong>{{randomArr2[2]}}℃</strong>
-            </li>
-            <li>
-              <span>11:00</span>
-              <!-- <img :src="'/static/images/weather'+randomArr[3]+'.png'" alt /> -->
-              <img src="../assets/images/display/weather4.png" alt />
-              <strong>{{randomArr2[3]}}℃</strong>
-            </li>
-            <li>
-              <span>12:00</span>
-              <!-- <img :src="'/static/images/weather'+randomArr[4]+'.png'" alt /> -->
-              <img src="../assets/images/display/weather5.png" alt />
-              <strong>{{randomArr2[4]}}℃</strong>
-            </li>
-            <li>
-              <span>13:00</span>
-              <!-- <img :src="'/static/images/weather'+randomArr[5]+'.png'" alt /> -->
-              <img src="../assets/images/display/weather6.png" alt />
-              <strong>{{randomArr2[5]}}℃</strong>
+          <ul class="weather-list" v-if="fultherWeatherInfo">
+            <li v-for="(item,$index) in fultherWeatherInfo.slice(0,5)" :key="$index">
+              <span>{{item.fxTime.slice(11,16)}}</span>
+              <img :src="'/static/images/128/' +item.icon + '.png'" alt />
+              <strong>{{item.temp}}℃</strong>
             </li>
           </ul>
         </div>
       </div>
       <div class="feature-page">
-        <div class="video-box" v-show="loginInfo.status === 1">
-          <!-- <img v-if="bannerStatus===2" src="../assets/images/display/video.png" alt /> -->
+        <div class="video-box" v-if="loginInfo.status === 1">
           <video-player
             class="video-player vjs-custom-skin"
             ref="videoPlayer"
@@ -75,11 +46,11 @@
             @play="onPlay($event)"
             @pause="onPause($event)"
             @ended="onEended($event)"
-            v-if="bannerStatus===2"
+            v-show="bannerStatus===2"
           ></video-player>
           <el-carousel
             height="666px"
-            :interval="3000"
+            :interval="1000"
             indicator-position="outside"
             arrow="never"
             trigger="click"
@@ -104,6 +75,18 @@
             <el-carousel-item>
               <img src="../assets/images/banner/6.png" alt />
             </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/7.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/8.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/9.png" alt />
+            </el-carousel-item>
+            <el-carousel-item>
+              <img src="../assets/images/banner/10.png" alt />
+            </el-carousel-item>
           </el-carousel>
         </div>
         <div class="login" v-if="loginInfo.status === 2">
@@ -113,18 +96,24 @@
                 <img src="../assets/images/display/login01.png" alt />
               </div>
               <a href="javascript:void(0)">业主登录</a>
+              <div class="right-border"></div>
+              <div class="left-border"></div>
             </div>
             <div class="log-box" @click="login">
               <div class="img-box">
                 <img src="../assets/images/display/login02.png" alt />
               </div>
               <a href="javascript:void(0)">游客登录</a>
+              <div class="right-border"></div>
+              <div class="left-border"></div>
             </div>
           </div>
           <div class="bottom">
             <div class="log-box" @click="login">
               <img src="../assets/images/display/login02.png" alt />
               <a href="javascript:void(0)">管理员登录</a>
+              <div class="right-border"></div>
+              <div class="left-border"></div>
             </div>
           </div>
         </div>
@@ -142,7 +131,7 @@
                 ></ve-liquidfill>
               </div>
               <div class="active-box">
-                <div class="active-box-left" @click="loginInfo.runningStatus=2">
+                <div class="active-box-left" @click="loginInfo.runningStatus=2;addTimeoutTken()">
                   <p>
                     <img
                       v-if="loginInfo.runningStatus!==2"
@@ -160,7 +149,7 @@
                     <span v-if="loginInfo.runningStatus===2" class="active">手动运行</span>
                   </p>
                 </div>
-                <div class="active-box-right" @click="loginInfo.runningStatus=3">
+                <div class="active-box-right" @click="loginInfo.runningStatus=3;addTimeoutTken()">
                   <p>
                     <img
                       v-if="loginInfo.runningStatus!==3"
@@ -179,19 +168,12 @@
                   </p>
                 </div>
               </div>
-              <div class="stop-box" @click="loginInfo.runningStatus=1"></div>
+              <div class="stop-box" @click="loginInfo.runningStatus=1;addTimeoutTken()"></div>
             </div>
             <div class="right">
               <h5>照明、太阳能</h5>
               <div class="solar-energy">
-                <!-- <div class="img-box">
-                  <img src="../assets/images/display/sun.png" alt="">
-                  <div class="number-item">
-
-                  </div>
-                  <h5></h5>
-                  <div></div>
-                </div>-->
+                <i></i>
               </div>
             </div>
           </div>
@@ -227,7 +209,9 @@
             </div>
             <div class="right">
               <h5>设备状态</h5>
-              <div class="device-status"></div>
+              <div class="device-status">
+                <i></i>
+              </div>
             </div>
           </div>
         </div>
@@ -236,19 +220,29 @@
         <ul>
           <li>
             <i></i>
-            <span>北京市能源有限公司 | 13000001111</span>
+            <span>
+              <marquee behavior direction>习近平对进一步做好防汛救灾工作作出重要指示</marquee>
+            </span>
           </li>
           <li>
             <i></i>
-            <span>北京市能源可再生环保有限公司 | 13000001111</span>
+            <span>
+              <marquee
+                behavior
+                direction
+              >习近平对防汛救灾工作作出重要指示 要求全力做好洪涝地质灾害防御和应急抢险救援，坚持人民至上生命至上，切实把确保人民生命安全放在第一位落到实处</marquee>
+            </span>
           </li>
           <li>
             <i></i>
-            <span>北京市互联网科技有限公司 | 13000001111</span>
+            <span>
+              <marquee behavior direction>北京泰宁科创雨水利用技术股份有限公司，北京市昌平区科技园区双营西路90号，4006-501-510</marquee>
+            </span>
           </li>
         </ul>
         <img v-if="loginInfo.status !==1" src="../assets/images/display/erweima.png" alt />
         <img
+          class="icon-enter"
           v-if="loginInfo.status ===1"
           src="../assets/images/display/icon-inter.png"
           alt
@@ -256,8 +250,8 @@
         />
       </div>
     </div>
-    <div v-if="loginInfo.status===2" class="login-out" @click="loginInfo.status=1">返回</div>
-    <div v-if="loginInfo.status===3" class="login-out" @click="loginInfo.status=2">退出</div>
+    <div v-if="loginInfo.status===2" class="login-out" @click="loginInfo.status=1;clearTimeoutToken()">返回</div>
+    <div v-if="loginInfo.status===3" class="login-out" @click="loginInfo.status=2;addTimeoutTken()">退出</div>
     <div class="charge-box">
       <span>85%</span>
       <i></i>
@@ -308,7 +302,7 @@ export default {
             label: {
               formatter(options) {
                 const { seriesName, value } = options;
-                return `${seriesName}\n${value * 100000}ml`;
+                return `${seriesName}\n1256.3m³`;
               },
               fontSize: 15,
               color: "green",
@@ -329,6 +323,9 @@ export default {
         }
       },
       nowTime: "",
+      nowWeatherInfo: null,
+      fultherWeatherInfo: null,
+      threeDaysWeatherInfo: null,
       randomArr: [
         Math.ceil(Math.random() * 8),
         Math.ceil(Math.random() * 8),
@@ -360,7 +357,7 @@ export default {
         sources: [
           {
             type: "video/mp4",
-            src: "https://www.w3school.com.cn/example/html5/mov_bbb.mp4" //url地址
+            src: "/static/video/2019.12.25 泰宁中文修改版.mp4" //url地址
           }
         ],
         poster:
@@ -373,10 +370,39 @@ export default {
           remainingTimeDisplay: false,
           fullscreenToggle: false // 全屏按钮
         }
-      }
+      },
+      // 回到屏保的timeoutToken
+      timeoutToken: null
     };
   },
   methods: {
+    // 获取当天天气
+    getNowweather() {
+      let that = this;
+      httpService.nowWeather(function(response) {
+        if (response && response.success) {
+          that.nowWeatherInfo = response.data;
+        }
+      });
+    },
+    // 获取未来12小时天气
+    getFultherWeather() {
+      let that = this;
+      httpService.fultherWeather(function(response) {
+        if (response && response.success) {
+          that.fultherWeatherInfo = response.data;
+        }
+      });
+    },
+    // 获取未来三天的天气
+    getThreeDaysWeather() {
+      let that = this;
+      httpService.threeDaysWeather(function(response) {
+        if (response && response.success) {
+          that.threeDaysWeatherInfo = response.data;
+        }
+      });
+    },
     handleBannerChange(key1, key2) {
       console.log(key1, key2);
       if (key1 === 0) {
@@ -421,15 +447,20 @@ export default {
     },
     goLoginPage() {
       this.loginInfo.status = 2;
+      this.addTimeoutTken();
     },
     login() {
       this.loginInfo.status = 3;
+      this.addTimeoutTken();
     },
     goScreen() {
+      this.bannerStatus = 1;
       this.loginInfo.status = 1;
+      this.clearTimeoutToken();
     },
     goHomePage() {
       this.loginInfo.status = 3;
+      this.addTimeoutTken();
     },
     timeFormate(timeStamp) {
       let year = new Date(timeStamp).getFullYear();
@@ -497,6 +528,32 @@ export default {
     },
     onEended(event) {
       this.bannerStatus = 1;
+    },
+    // 每一小时，更新一次天气
+    updateWeather() {
+      setTimeout(() => {
+        console.log("整分更新天气");
+        this.getNowweather();
+        this.getFultherWeather();
+        this.updateWeather();
+      }, 3600000);
+    },
+    // 清除锁屏定时器
+    clearTimeoutToken() {
+      window.clearTimeout(this.timeoutToken);
+      console.log('清除定时器')
+      this.timeoutToken = null;
+    },
+    addTimeoutTken() {
+      if (this.timeoutToken) {
+        console.log('清除之前的定时器')
+        window.clearTimeout(this.timeoutToken);
+      }
+      this.timeoutToken = setTimeout(() => {
+        console.log('回到屏保')
+        this.loginInfo.status = 1;
+      }, 30000);
+      console.log('开启新的定时器')
     }
   },
   computed: {
@@ -509,11 +566,21 @@ export default {
   },
   created: function() {
     this.nowTimes();
+    this.getNowweather();
+    this.getFultherWeather();
+    this.getThreeDaysWeather();
+    let myDate = new Date();
+    let myDateS = myDate.getSeconds() * 1000;
+    let myDateMs = 1000 - myDate.getMilliseconds();
+    // 3600000
+    setTimeout(() => {
+      // 整小时第一次更新天气
+      console.log("整分第一次更新天气");
+      this.updateWeather();
+    }, 3600000 - myDateS - myDateMs);
   },
   mounted: function() {
     let that = this;
-    // this.setCircle1(0.33);
-    // this.setCircle2(0.63);
     // setTimeout(() => {
     //   that.chartData.rows[0].percent = 0.8;
     // }, 5000);
@@ -523,6 +590,6 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 @import "./Home.scss";
 </style>

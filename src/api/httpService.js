@@ -1,6 +1,69 @@
 import axios from "axios";
 let host = 'http://39.105.94.5:8092';
 let httpServe = axios.create();
+function nowWeather(returnFun) {
+    let resultInfo = {
+        success: false,
+        data: null,
+        msg: ''
+    }
+    httpServe({
+        method: "get",
+        url: "https://devapi.heweather.net/v7/weather/now?location=101010100&key=506c8ed1fba74434b70d2f45d7476470"
+    }).then(function (response) {
+        resultInfo.success = true
+        if (response && response.status === 200) {
+            resultInfo.data = response.data.now;
+        } else {
+            resultInfo.data = {
+                text: "多云",
+                temp: "25"
+            }
+        }
+        if (returnFun) {
+            returnFun(resultInfo);
+        }
+    });
+}
+function fultherWeather(returnFun) {
+    let resultInfo = {
+        success: false,
+        data: null,
+        msg: ''
+    }
+    httpServe({
+        method: "get",
+        url: "https://devapi.heweather.net/v7/weather/24h?location=101010100&key=506c8ed1fba74434b70d2f45d7476470"
+    }).then(function (response) {
+        resultInfo.success = true
+        if (response && response.status === 200) {
+            resultInfo.data = response.data.hourly;
+        }
+        if (returnFun) {
+            returnFun(resultInfo);
+        }
+    });
+}
+function threeDaysWeather(returnFun) {
+    let resultInfo = {
+        success: false,
+        data: null,
+        msg: ''
+    }
+    httpServe({
+        method: "get",
+        url: "https://devapi.heweather.net/v7/weather/3d?location=101010100&key=506c8ed1fba74434b70d2f45d7476470"
+    }).then(function (response) {
+        resultInfo.success = true
+        if (response && response.status === 200) {
+            resultInfo.data = response.data.daily;
+        }
+        if (returnFun) {
+            returnFun(resultInfo);
+        }
+    });
+}
+
 function test1() {
     let resultInfo = {
         success: false,
@@ -46,5 +109,8 @@ function test3() {
 export default {
     test1,
     test2,
-    test3
+    test3,
+    nowWeather,
+    fultherWeather,
+    threeDaysWeather
 }

@@ -1,7 +1,9 @@
 .home {
     position: relative;
-    width: 1080px;
-    height: 1280px;
+    width: 100%;
+    max-width: 1024px;
+    height: 100%;
+    max-height: 1280px;
     margin: 0 auto;
     background: url("../assets/images/display/bg.png") center center no-repeat;
     background-size: 100% 100%;
@@ -45,7 +47,7 @@
                 display: flex;
                 & > img {
                     width: 93px;
-                    height: 84px;
+                    height: 93px;
                     margin-top: 60px;
                     margin-left: 24px;
                 }
@@ -77,8 +79,16 @@
                     }
                 }
                 .p2 {
-                    padding-top: 80px;
+                    padding-top: 34px;
                     padding-left: 18px;
+                    h5 {
+                        font-size: 18px;
+                        font-family: Microsoft YaHei;
+                        font-weight: 400;
+                        color: rgba(255, 255, 255, 1);
+                        line-height: 20px;
+                        padding-bottom: 22px;
+                    }
                     h6 {
                         font-size: 26px;
                         font-family: Microsoft YaHei;
@@ -143,14 +153,15 @@
                         }
                         img {
                             width: 45px;
-                            height: 44px;
+                            height: 45px;
+                            margin-left: 10px;
                         }
                         strong {
                             font-size: 17px;
                             font-family: Microsoft YaHei;
                             font-weight: 400;
                             color: rgba(255, 255, 255, 1);
-                            line-height: 49px;
+                            line-height: 36px;
                         }
                     }
                 }
@@ -238,10 +249,27 @@
                         background: url("../assets/images/display/bg-feature.png") center center no-repeat;
                         background-size: 100% 100%;
                         .solar-energy {
+                            position: relative;
                             width: 100%;
                             height: 100%;
                             background: url("../assets/images/display/demo2.png") center 50px no-repeat;
                             background-size: 421px 244px;
+                            i {
+                                position: absolute;
+                                left: 122px;
+                                top: 40px;
+                                z-index: 10;
+                                width: 66px;
+                                height: 66px;
+                                background: url("../assets/images/display/icon-sun.png") center center no-repeat;
+                                background-size: 100% 100%;
+                                // animation-name: mychange; /*动画的名字*/
+                                // animation-duration: 1000ms; /*定义动画完成一个周期所需要的时间，以秒或毫秒计*/
+                                // animation-iteration-count: infinite; /*定义动画的播放次数，这里是无限播放*/
+                                // animation-direction: alternate; /*定义是否应该轮流反向播放动画，这里是动画轮流播放*/
+                                animation: mychange 5s infinite linear;
+
+                            }
                         }
                     }
                 }
@@ -275,10 +303,25 @@
                         background: url("../assets/images/display/bg-feature.png") center center no-repeat;
                         background-size: 100% 100%;
                         .device-status {
+                            position: relative;
                             width: 100%;
                             height: 100%;
                             background: url("../assets/images/display/demo3.png") center 30px no-repeat;
                             background-size: 421px 244px;
+                            i {
+                                position: absolute;
+                                left: 92px;
+                                top: 80px;
+                                z-index: 10;
+                                width: 44px;
+                                height: 72px;
+                                background: url("../assets/images/display/icon-water.png") center center no-repeat;
+                                background-size: 100% 100%;
+                                animation-name: mychange2; /*动画的名字*/
+                                animation-duration: 1000ms; /*定义动画完成一个周期所需要的时间，以秒或毫秒计*/
+                                animation-iteration-count: infinite; /*定义动画的播放次数，这里是无限播放*/
+                                animation-direction: alternate; /*定义是否应该轮流反向播放动画，这里是动画轮流播放*/
+                            }
                         }
                     }
                 }
@@ -300,6 +343,7 @@
                     flex: 7;
                     text-align: center;
                     .log-box {
+                        position: relative;
                         display: inline-block;
                         width: 343px;
                         height: 456px;
@@ -326,11 +370,32 @@
                             color: #4ca2ff;
                             line-height: 40px;
                         }
+                        .right-border {
+                            position: absolute;
+                            top: 0px;
+                            right: 0px;
+                            z-index: 10;
+                            width: 44px;
+                            height: 44px;
+                            border-top: 3px solid rgba(0, 228, 255, 1);
+                            border-right: 3px solid rgba(0, 228, 255, 1);
+                        }
+                        .left-border {
+                            position: absolute;
+                            bottom: 0px;
+                            left: 0px;
+                            z-index: 10;
+                            width: 44px;
+                            height: 44px;
+                            border-left: 3px solid rgba(0, 228, 255, 1);
+                            border-bottom: 3px solid rgba(0, 228, 255, 1);
+                        }
                     }
                 }
                 .bottom {
                     flex: 3;
                     .log-box {
+                        position: relative;
                         display: inline-block;
                         width: 338px;
                         height: 140px;
@@ -338,7 +403,7 @@
                         background: rgba(22, 214, 255, 0.08);
                         margin-top: 5%;
                         padding-top: 15px;
-                        margin-left: 90px;
+                        margin-left: 62px;
                         cursor: pointer;
                         img {
                             width: 72px;
@@ -354,17 +419,37 @@
                             color: rgba(76, 162, 255, 1);
                             vertical-align: middle;
                         }
+                        .right-border {
+                            position: absolute;
+                            top: 0px;
+                            right: 0px;
+                            z-index: 10;
+                            width: 34px;
+                            height: 34px;
+                            border-top: 3px solid rgba(0, 228, 255, 1);
+                            border-right: 3px solid rgba(0, 228, 255, 1);
+                        }
+                        .left-border {
+                            position: absolute;
+                            bottom: 0px;
+                            left: 0px;
+                            z-index: 10;
+                            width: 34px;
+                            height: 34px;
+                            border-left: 3px solid rgba(0, 228, 255, 1);
+                            border-bottom: 3px solid rgba(0, 228, 255, 1);
+                        }
                     }
                 }
             }
             .video-box {
                 height: 100%;
                 padding: 45px 0;
-                // img {
-                //     width: 100%;
-                //     height: 100%;
-                // }
-                .video-player{
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+                .video-player {
                     height: 666px;
                 }
             }
@@ -452,14 +537,21 @@
                         font-family: Microsoft YaHei;
                         background: rgba(67, 154, 255, 0.2);
                         color: #4ca2ff;
+                        overflow: hidden;
+                        height: 40px;
                     }
                 }
             }
             & > img {
-                width: 156px;
-                height: 156px;
+                width: auto;
+                height: 143px;
                 margin-left: 20px;
                 margin-bottom: 9px;
+                &.icon-enter {
+                    margin-bottom: 4px;
+                    width: 156px;
+                    height: 156px;
+                }
             }
         }
     }
@@ -525,6 +617,32 @@
             height: 53px;
             background: url("../assets/images/display/icon-charge.gif") center center no-repeat;
             background-size: 100% 100%;
+        }
+    }
+    @keyframes mychange {
+        /*mychange是动画的名字上面有用到*/
+        0% {
+            -webkit-transform: rotate(0deg);
+            -moz-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+            -o-transform: rotate(0deg);
+            transform: rotate(0deg);
+        }
+        100% {
+            -webkit-transform: rotate(360deg);
+            -moz-transform: rotate(360deg);
+            -ms-transform: rotate(360deg);
+            -o-transform: rotate(360deg);
+            transform: rotate(360deg);
+        }
+    }
+    @keyframes mychange2 {
+        /*mychange是动画的名字上面有用到*/
+        0% {
+            opacity: 0.3;
+        }
+        100% {
+            opacity: 1;
         }
     }
 }

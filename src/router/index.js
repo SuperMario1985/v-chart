@@ -9,7 +9,7 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      redirect: '/demo'
+      redirect: '/home'
     },
     {
       path: '/home',
