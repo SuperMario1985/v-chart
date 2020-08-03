@@ -6,7 +6,11 @@
       <div class="weather-page">
         <div class="weather-info-left">
           <!-- <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt /> -->
-          <img v-if="nowWeatherInfo" :src="'/static/images/128/' +nowWeatherInfo.icon + '.png'" alt />
+          <img
+            v-if="nowWeatherInfo"
+            :src="'./static/images/128/' +nowWeatherInfo.icon + '.png'"
+            alt
+          />
           <div class="p1">
             <h5>今日天气</h5>
             <p v-if="nowWeatherInfo">
@@ -30,7 +34,7 @@
           <ul class="weather-list" v-if="fultherWeatherInfo">
             <li v-for="(item,$index) in fultherWeatherInfo.slice(0,5)" :key="$index">
               <span>{{item.fxTime.slice(11,16)}}</span>
-              <img :src="'/static/images/128/' +item.icon + '.png'" alt />
+              <img :src="'./static/images/128/' +item.icon + '.png'" alt />
               <strong>{{item.temp}}℃</strong>
             </li>
           </ul>
@@ -50,7 +54,7 @@
           ></video-player>
           <el-carousel
             height="666px"
-            :interval="1000"
+            :interval="8000"
             indicator-position="outside"
             arrow="never"
             trigger="click"
@@ -65,27 +69,6 @@
             </el-carousel-item>
             <el-carousel-item>
               <img src="../assets/images/banner/3.png" alt />
-            </el-carousel-item>
-            <el-carousel-item>
-              <img src="../assets/images/banner/4.png" alt />
-            </el-carousel-item>
-            <el-carousel-item>
-              <img src="../assets/images/banner/5.png" alt />
-            </el-carousel-item>
-            <el-carousel-item>
-              <img src="../assets/images/banner/6.png" alt />
-            </el-carousel-item>
-            <el-carousel-item>
-              <img src="../assets/images/banner/7.png" alt />
-            </el-carousel-item>
-            <el-carousel-item>
-              <img src="../assets/images/banner/8.png" alt />
-            </el-carousel-item>
-            <el-carousel-item>
-              <img src="../assets/images/banner/9.png" alt />
-            </el-carousel-item>
-            <el-carousel-item>
-              <img src="../assets/images/banner/10.png" alt />
             </el-carousel-item>
           </el-carousel>
         </div>
@@ -221,16 +204,29 @@
           <li>
             <i></i>
             <span>
-              <marquee behavior direction>习近平对进一步做好防汛救灾工作作出重要指示</marquee>
+              <marquee behavior="scroll" direction="left">
+                中共中央政治局常务委员会召开会议 研究部署防汛救灾工作 中共中央总书记习近平主持会议 中共中央政治局常务委员会7月17日召开会议，研究部署防汛救灾工作。中共中央总书记习近平主持会议并发表重要讲话。
+                习近平指出，6月份以来，在党中央坚强领导下，各级党委和政府紧急行动、强化措施，国家防总、各有关部门和单位履职尽责、密切协作，人民解放军和武警部队关键时刻发挥突击队作用，广大干部群众团结奋战，防洪救灾体系发挥重要作用，防汛救灾工作有序有力推进，取得了积极成效。
+                习近平强调，防汛救灾关系人民生命财产安全，关系粮食安全、经济安全、社会安全、国家安全。今年是决胜全面建成小康社会、决战脱贫攻坚之年，也是“十三五”规划收官之年，做好防汛救灾工作十分重要。各有关地区、部门和单位要始终把保障人民生命财产安全放在第一位，采取更加有力措施，切实做好防汛救灾各项工作。
+                习近平指出，当前，全国防汛进入“七下八上”阶段，长江流域中上游地区降雨仍然偏多，黄河中上游、海河、松花江、淮河流域可能发生较重汛情，必须统筹抓好南北方江河安全度汛，加强组织领导和责任落实，坚持预防预备和应急处突相结合，加强统筹协调，强化协同配合，抓实抓细防汛救灾各项措施。各有关地区都要做好预案准备、队伍准备、物资准备、蓄滞洪区运用准备，宁可备而不用，不可用时无备。
+                会议强调，党中央高度重视今年的防汛救灾工作，5月19日，习近平总书记在主持中央政治局常委会会议研究有关工作时，要求有关方面高度重视今年汛期长江中下游汛情，压实防汛工作责任，克服疫情影响，抢抓水利工程修复，加强物资储备，组织开展抢险培训和演习，全力保障人民生命财产安全。习近平总书记还多次作出重要指示批示，要求各地区和有关部门坚持人民至上、生命至上，统筹做好疫情防控和防汛救灾工作；要求各级党委和政府压实责任，勇于担当，采取更加有力有效的措施，全力抢险救援，尽最大努力保障人民生命财产安全。
+                会议指出，各级党委和政府要全面落实防汛救灾主体责任，加强领导，守土尽责，切实把保障人民生命财产安全放到第一位。要发挥防灾减灾救灾体制改革优势，各有关方面要加强统筹协调，发挥各自专业优势，形成省市间、部门间、军地间、上下游、左右岸通力协作的防汛救灾格局。要把责任落到防汛救灾全过程、各层级，到岗到人，落实汛期工程巡查防守责任制。各级领导干部要深入一线、靠前指挥、现场督查，在防汛救灾第一线体现责任担当，组织广大干部群众众志成城、顽强奋斗。
+                会议强调，要精准预警严密防范，及时准确对雨情、水情等气象数据进行滚动预报，加强对次生灾害预报，特别要提高局部强降雨、台风、山洪、泥石流等预测预报水平，预警信息发布要到村到户到人。要强化重要堤防、重要设施防护，科学调度水利工程，加强巡堤查险，发现险情及时抢护，确保重要基础设施安全。要全力抢险救援救灾，对各类抢险救援力量，要统一调度、提前预置、快速出动、高效救援，努力将各类损失降到最低。要统筹做好疫情防控和抢险救灾工作，严格落实各项防控措施，避免疫情出现反弹。
+                会议指出，要精心谋划灾后恢复重建，及时下拨救灾资金，调运救灾物资，尽快恢复灾区生产生活秩序，及时抢修水电、交通、通信等基础设施，组织带领受灾群众恢复生产、重建家园。要支持受灾的各类生产企业复工复产，统筹灾后恢复重建和脱贫攻坚工作，对贫困地区和受灾困难群众给予支持，防止因灾致贫返贫。
+                会议强调，要全面提高灾害防御能力，坚持以防为主、防抗救相结合，把重大工程建设、重要基础设施补短板、城市内涝治理、加强防灾备灾体系和能力建设等纳入“十四五”规划中统筹考虑。
+                会议指出，各级党委和政府要担负起促一方发展、保一方平安的政治责任，基层党组织和广大党员、干部要充分发挥战斗堡垒作用和先锋模范作用，主动担当、敢打头阵，紧紧依靠人民群众，把党的政治优势、组织优势、密切联系群众优势转化为防汛救灾的强大政治优势，让党旗在防汛救灾第一线高高飘扬。
+                会议还研究了其他事项。
+              </marquee>
             </span>
           </li>
           <li>
             <i></i>
             <span>
-              <marquee
-                behavior
-                direction
-              >习近平对防汛救灾工作作出重要指示 要求全力做好洪涝地质灾害防御和应急抢险救援，坚持人民至上生命至上，切实把确保人民生命安全放在第一位落到实处</marquee>
+              <marquee behavior="scroll" direction>
+                局领导检查局属单位闸站所垃圾分类工作 本站讯 7月13日至17日，局生活垃圾分类推进工作指挥部成员分4组利用5天时间，对局属单位39个闸站所垃圾分类工作进行全方位检查。市水务局二级巡视员苌永欣带队检查了密云水库管理处、京密引水管理处、潮白河管理处、十三陵水库管理处所属的20个闸站所的垃圾分类工作，后勤服务中心相关人员参加检查。
+                苌永欣一行全面了解了闸站所垃圾分类工作落实情况，重点检查了闸站所的公共、办公、食堂区域的垃圾分类投放情况，仔细查看了桶站周边卫生、设备设施配置、垃圾分类工作台账，并对检查中存在的问题提出具体整改要求。
+                苌永欣强调，局属单位要继续加强对所属闸站所垃圾分类工作的管理力度，全面抓好日常管理、疫情防控、垃圾分类等各项工作。一要加大工作力度，坚持问题导向，分析存在问题，总结工作成效，加强垃圾分类工作与疫情防控工作的有机结合；二要积极探索，开拓创新，对照标准规范完善细节，提高精细化管理水平；三要强化党建引领，充分发挥基层党组织的作用，持之以恒地深入宣传教育，营造良好的宣传氛围，提高职工垃圾分类意识。
+              </marquee>
             </span>
           </li>
           <li>
@@ -250,8 +246,16 @@
         />
       </div>
     </div>
-    <div v-if="loginInfo.status===2" class="login-out" @click="loginInfo.status=1;clearTimeoutToken()">返回</div>
-    <div v-if="loginInfo.status===3" class="login-out" @click="loginInfo.status=2;addTimeoutTken()">退出</div>
+    <div
+      v-if="loginInfo.status===2"
+      class="login-out"
+      @click="loginInfo.status=1;clearTimeoutToken()"
+    >返回</div>
+    <div
+      v-if="loginInfo.status===3"
+      class="login-out"
+      @click="loginInfo.status=2;addTimeoutTken()"
+    >退出</div>
     <div class="charge-box">
       <span>85%</span>
       <i></i>
@@ -357,11 +361,10 @@ export default {
         sources: [
           {
             type: "video/mp4",
-            src: "/static/video/2019.12.25 泰宁中文修改版.mp4" //url地址
+            src: "./static/video/2019.12.25 泰宁中文修改版.mp4" //url地址
           }
         ],
-        poster:
-          "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1135012456,1998209284&fm=26&gp=0.jpg", // 你的封面地址
+        poster: "", // 你的封面地址
         // width: document.documentElement.clientWidth,
         notSupportedMessage: "此视频暂无法播放，请稍后再试", // 允许覆盖Video.js无法播放媒体源时显示的默认信息。
         controlBar: {
@@ -408,6 +411,7 @@ export default {
       if (key1 === 0) {
         this.bannerStatus = 2;
         this.$refs.videoPlayer.player.play();
+        // this.player.muted(false);
       }
     },
     gradientToColor(color) {},
@@ -541,19 +545,19 @@ export default {
     // 清除锁屏定时器
     clearTimeoutToken() {
       window.clearTimeout(this.timeoutToken);
-      console.log('清除定时器')
+      console.log("清除定时器");
       this.timeoutToken = null;
     },
     addTimeoutTken() {
       if (this.timeoutToken) {
-        console.log('清除之前的定时器')
+        console.log("清除之前的定时器");
         window.clearTimeout(this.timeoutToken);
       }
       this.timeoutToken = setTimeout(() => {
-        console.log('回到屏保')
+        console.log("回到屏保");
         this.loginInfo.status = 1;
-      }, 30000);
-      console.log('开启新的定时器')
+      }, 180000);
+      console.log("开启新的定时器");
     }
   },
   computed: {
@@ -581,9 +585,8 @@ export default {
   },
   mounted: function() {
     let that = this;
-    // setTimeout(() => {
-    //   that.chartData.rows[0].percent = 0.8;
-    // }, 5000);
+    // 屏蔽右键
+    document.oncontextmenu = () => false;
   },
   components: {}
 };
