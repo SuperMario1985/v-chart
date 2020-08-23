@@ -63,7 +63,25 @@ function threeDaysWeather(returnFun) {
         }
     });
 }
-
+function getNews(returnFun) {
+    let resultInfo = {
+        success: false,
+        data: null,
+        msg: ''
+    }
+    httpServe({
+        method: "get",
+        url: "/static/video/news.json"
+    }).then(function (response) {
+        resultInfo.success = true;
+        if (response && response.status === 200) {
+            resultInfo.data = response.data;
+        }
+        if (returnFun) {
+            returnFun(resultInfo);
+        }
+    });
+}
 function test1() {
     let resultInfo = {
         success: false,
@@ -112,5 +130,6 @@ export default {
     test3,
     nowWeather,
     fultherWeather,
-    threeDaysWeather
+    threeDaysWeather,
+    getNews
 }
