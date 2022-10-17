@@ -2,40 +2,42 @@
   <div class="home">
     <div class="header-page">雨水回用处理间</div>
     <div class="main-box">
-      <div class="time-page">{{nowTime}}</div>
+      <div class="time-page">{{ nowTime }}</div>
       <div class="weather-page">
         <div class="weather-info-left">
-          <!-- <img :src="'/static/images/weather'+randomArr[0]+'.png'" alt /> -->
           <img
             v-if="nowWeatherInfo"
-            :src="'./static/images/128/' +nowWeatherInfo.icon + '.png'"
+            :src="'./static/images/128/' + nowWeatherInfo.icon + '.png'"
             alt
           />
           <div class="p1">
             <h5>今日天气</h5>
             <p v-if="nowWeatherInfo">
-              {{nowWeatherInfo.temp}}
+              {{ nowWeatherInfo.temp }}
               <span>℃</span>
             </p>
           </div>
           <div class="p2">
-            <h5>北京 昌平</h5>
-            <h6 v-if="nowWeatherInfo">{{nowWeatherInfo.text}}</h6>
-            <p
-              v-if="threeDaysWeatherInfo"
-            >{{threeDaysWeatherInfo[0].tempMin}}~{{threeDaysWeatherInfo[0].tempMax}}℃</p>
+            <h5>北京 大兴</h5>
+            <h6 v-if="nowWeatherInfo">{{ nowWeatherInfo.text }}</h6>
+            <p v-if="threeDaysWeatherInfo">
+              {{ threeDaysWeatherInfo[0].tempMin }}~{{
+                threeDaysWeatherInfo[0].tempMax
+              }}℃
+            </p>
           </div>
           <div class="right-line"></div>
         </div>
         <div class="weather-info-right">
-          <h6>
-            <i></i>小时预报
-          </h6>
+          <h6><i></i>小时预报</h6>
           <ul class="weather-list" v-if="fultherWeatherInfo">
-            <li v-for="(item,$index) in fultherWeatherInfo.slice(0,5)" :key="$index">
-              <span>{{item.fxTime.slice(11,16)}}</span>
-              <img :src="'./static/images/128/' +item.icon + '.png'" alt />
-              <strong>{{item.temp}}℃</strong>
+            <li
+              v-for="(item, $index) in fultherWeatherInfo.slice(0, 5)"
+              :key="$index"
+            >
+              <span>{{ item.fxTime.slice(11, 16) }}</span>
+              <img :src="'./static/images/128/' + item.icon + '.png'" alt />
+              <strong>{{ item.temp }}℃</strong>
             </li>
           </ul>
         </div>
@@ -50,7 +52,7 @@
             @play="onPlay($event)"
             @pause="onPause($event)"
             @ended="onEended($event)"
-            v-show="bannerStatus===2"
+            v-show="bannerStatus === 2"
           ></video-player>
           <el-carousel
             height="666px"
@@ -59,7 +61,7 @@
             arrow="never"
             trigger="click"
             @change="handleBannerChange"
-            v-if="bannerStatus===1"
+            v-if="bannerStatus === 1"
           >
             <el-carousel-item>
               <img src="../assets/images/banner/1.png" alt />
@@ -74,15 +76,15 @@
         </div>
         <div class="login" v-if="loginInfo.status === 2">
           <div class="top">
-            <div class="log-box" @click="login">
+            <div class="log-box" @click="ownerLogin">
               <div class="img-box">
                 <img src="../assets/images/display/login01.png" alt />
               </div>
-              <a href="javascript:void(0)">业主登录</a>
+              <a href="javascript:void(0)">管理员登录</a>
               <div class="right-border"></div>
               <div class="left-border"></div>
             </div>
-            <div class="log-box" @click="login">
+            <div class="log-box" @click="visitorsLogin">
               <div class="img-box">
                 <img src="../assets/images/display/login02.png" alt />
               </div>
@@ -91,20 +93,20 @@
               <div class="left-border"></div>
             </div>
           </div>
-          <div class="bottom">
+          <!-- <div class="bottom">
             <div class="log-box" @click="login">
               <img src="../assets/images/display/login02.png" alt />
               <a href="javascript:void(0)">管理员登录</a>
               <div class="right-border"></div>
               <div class="left-border"></div>
             </div>
-          </div>
+          </div> -->
         </div>
-        <div class="rain" v-if="loginInfo.status === 3">
+        <div class="rain" v-if="loginInfo.status === 3.1">
           <div class="top">
             <div class="left">
-              <h5>净水功能</h5>
-              <div class="liquid-fill">
+              <h5>水池水量</h5>
+              <div class="liquid-fill liquid-fill2">
                 <ve-liquidfill
                   width="100%"
                   height="100%"
@@ -113,81 +115,117 @@
                   :settings="chartSettings"
                 ></ve-liquidfill>
               </div>
-              <div class="active-box">
-                <div class="active-box-left" @click="loginInfo.runningStatus=2;addTimeoutTken()">
+              <!-- <div class="active-box">
+                <div
+                  class="active-box-left"
+                  @click="
+                    loginInfo.runningStatus = 2;
+                    addTimeoutTken();
+                  "
+                >
                   <p>
                     <img
-                      v-if="loginInfo.runningStatus!==2"
+                      v-if="loginInfo.runningStatus !== 2"
                       src="../assets/images/display/icon-man.png"
                       alt
                     />
                     <img
-                      v-if="loginInfo.runningStatus===2"
+                      v-if="loginInfo.runningStatus === 2"
                       src="../assets/images/display/icon-man-active.png"
                       alt
                     />
                   </p>
                   <p>
-                    <span v-if="loginInfo.runningStatus!==2">手动运行</span>
-                    <span v-if="loginInfo.runningStatus===2" class="active">手动运行</span>
+                    <span v-if="loginInfo.runningStatus !== 2">手动运行</span>
+                    <span v-if="loginInfo.runningStatus === 2" class="active"
+                      >手动运行</span
+                    >
                   </p>
                 </div>
-                <div class="active-box-right" @click="loginInfo.runningStatus=3;addTimeoutTken()">
+                <div
+                  class="active-box-right"
+                  @click="
+                    loginInfo.runningStatus = 3;
+                    addTimeoutTken();
+                  "
+                >
                   <p>
                     <img
-                      v-if="loginInfo.runningStatus!==3"
+                      v-if="loginInfo.runningStatus !== 3"
                       src="../assets/images/display/icon-auto.png"
                       alt
                     />
                     <img
-                      v-if="loginInfo.runningStatus===3"
+                      v-if="loginInfo.runningStatus === 3"
                       src="../assets/images/display/icon-auto-active.png"
                       alt
                     />
                   </p>
                   <p>
-                    <span v-if="loginInfo.runningStatus!==3">自动运行</span>
-                    <span v-if="loginInfo.runningStatus===3" class="active">自动运行</span>
+                    <span v-if="loginInfo.runningStatus !== 3">自动运行</span>
+                    <span v-if="loginInfo.runningStatus === 3" class="active"
+                      >自动运行</span
+                    >
                   </p>
                 </div>
-              </div>
-              <div class="stop-box" @click="loginInfo.runningStatus=1;addTimeoutTken()"></div>
+              </div> -->
+              <!-- <div
+                class="stop-box"
+                @click="
+                  loginInfo.runningStatus = 1;
+                  addTimeoutTken();
+                "
+              ></div> -->
             </div>
             <div class="right">
-              <h5>照明、太阳能</h5>
-              <div class="solar-energy">
-                <i></i>
+              <h5>雨水回收</h5>
+              <div class="btn-box">
+                <i
+                  :class="{ active: ownerConfigPageStatus['V1000.4'] }"
+                  @click="remoteWritingList('V1000.4', 1)"
+                  >绿化浇灌</i
+                >
+                <i
+                  :class="{ active: ownerConfigPageStatus['V1000.6'] }"
+                  @click="remoteWritingList('V1000.6', 1)"
+                  >场地冲洗</i
+                >
+              </div>
+              <div class="btn-box">
+                <i
+                  :class="{ active: ownerConfigPageStatus['V1000.5'] }"
+                  @click="remoteWritingList('V1000.5', 1)"
+                  >雨水洗车</i
+                >
+                <i
+                  :class="{ active: ownerConfigPageStatus['V1000.7'] }"
+                  @click="remoteWritingList('V1000.7', 1)"
+                  >景观补水</i
+                >
+              </div>
+              <div class="btn-box">
+                <i class="stop" @click="stopRainBack">停止</i>
               </div>
             </div>
           </div>
           <div class="bottom">
             <div class="left">
               <h5>水质检测</h5>
-              <div class="check">
-                <!-- <div class="check-box">
-                  <div class="check-left">
-                    <div class="circle-progress">
-                      <div class="circle-bg"></div>
-                      <div class="wrapper wrapper-right">
-                        <div class="circle-progress-bar circle-right"></div>
-                      </div>
-                      <div class="wrapper wrapper-left">
-                        <div class="circle-progress-bar circle-left"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="check-right">
-                    <div class="circle-progress">
-                      <div class="circle-bg"></div>
-                      <div class="wrapper wrapper-right">
-                        <div class="circle-progress-bar circle-right2"></div>
-                      </div>
-                      <div class="wrapper wrapper-left">
-                        <div class="circle-progress-bar circle-left2"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>-->
+              <div class="btn-box">
+                <i
+                  :class="{ active: ownerConfigPageStatus['V1001.6'] }"
+                  @click="remoteWritingList('V1001.6', 1)"
+                  >一键反冲洗</i
+                >
+                <i
+                  :class="{ active: ownerConfigPageStatus['V1001.7'] }"
+                  @click="remoteWritingList('V1001.7', 1)"
+                  >一键调蓄排空</i
+                >
+              </div>
+              <div class="btn-box">
+                <i class="stop" @click="stopWaterCheck">停止</i>
+                <i @click="goToConfig">配置参数</i>
               </div>
             </div>
             <div class="right">
@@ -198,32 +236,439 @@
             </div>
           </div>
         </div>
+        <div class="rain" v-if="loginInfo.status === 3.2">
+          <div class="top">
+            <div class="left">
+              <h5>雨水利用量</h5>
+              <div class="config config2">
+                <div class="part-item">
+                  <div>
+                    <p>年雨水利用量:</p>
+                    <strong>
+                      <i>{{ swtchInfo.yearTotalRain }}</i>
+                      <span>M</span>
+                    </strong>
+                  </div>
+                </div>
+                <div class="part-item">
+                  <div>
+                    <p>累计雨水利用量:</p>
+                    <strong>
+                      <i>{{ swtchInfo.yearTotalUsed }}</i>
+                      <span>M</span>
+                    </strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="right">
+              <h5>设别设施状态</h5>
+              <div class="device-box">
+                <div class="device-state">
+                  <span>回用泵</span>
+                  <strong v-if="swtchInfo.reusePumpOperation">运行</strong>
+                  <strong class="error" v-else-if="swtchInfo.error1"
+                    >故障</strong
+                  >
+                  <strong v-else>停机</strong>
+                  <img
+                    v-if="swtchInfo.reusePumpOperation"
+                    src="../assets/images/config/btn2-active.gif"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    src="../assets/images/config/btn-closed.png"
+                    alt=""
+                  />
+                </div>
+                <div class="device-state">
+                  <span>调蓄泵</span>
+                  <strong v-if="swtchInfo.reusePumpOperation6">运行</strong>
+                  <strong class="error" v-else-if="swtchInfo.error5"
+                    >故障</strong
+                  >
+                  <strong v-else>停机</strong>
+                  <img
+                    v-if="swtchInfo.reusePumpOperation6"
+                    src="../assets/images/config/btn2-active.gif"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    src="../assets/images/config/btn-closed.png"
+                    alt=""
+                  />
+                </div>
+                <div class="device-state">
+                  <span>过滤器</span>
+                  <strong v-if="swtchInfo.reusePumpOperation3">运行</strong>
+                  <strong v-else>停机</strong>
+                  <img
+                    v-if="swtchInfo.reusePumpOperation3"
+                    src="../assets/images/config/btn2-active.gif"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    src="../assets/images/config/btn-closed.png"
+                    alt=""
+                  />
+                </div>
+                <div class="device-state">
+                  <span>消毒器</span>
+                  <strong v-if="swtchInfo.reusePumpOperation7">运行</strong>
+                  <strong v-else>停机</strong>
+                  <img
+                    v-if="swtchInfo.reusePumpOperation7"
+                    src="../assets/images/config/btn2-active.gif"
+                    alt=""
+                  />
+                  <img
+                    v-else
+                    src="../assets/images/config/btn-closed.png"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="left">
+              <h5>水质检测数据</h5>
+              <div class="check">
+                <div class="cover"></div>
+              </div>
+            </div>
+            <div class="right">
+              <h5>设备状态</h5>
+              <div class="device-status">
+                <i></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="config" v-if="loginInfo.status === 4">
+          <div class="part-item input-box">
+            <div>
+              <p>频率显示:</p>
+              <strong>
+                <i>{{ swtchInfo.frequency }}</i>
+                <span>Hz</span>
+              </strong>
+            </div>
+            <div>
+              <p>压力显示:</p>
+              <strong>
+                <i>{{ swtchInfo.pressure }}</i>
+                <span>KPa</span>
+              </strong>
+            </div>
+            <div>
+              <p>液位上限:</p>
+              <strong>
+                <i @click="configFlur(2)">{{ swtchInfo.liquidUp }}</i>
+                <span>M</span>
+              </strong>
+            </div>
+            <div>
+              <p>液位:</p>
+              <strong>
+                <i>{{ swtchInfo.liquidLevel }}</i>
+                <span>M</span>
+              </strong>
+            </div>
+          </div>
+          <div class="part-item input-box">
+            <div>
+              <p>频率设定:</p>
+              <strong>
+                <i @click="configfrequency">{{ frequencyVlue }}</i>
+                <span>Hz</span>
+              </strong>
+            </div>
+            <div>
+              <p>压力设定:</p>
+              <strong>
+                <i @click="configPressure">{{ pressureVlue }}</i>
+                <span>KPa</span>
+              </strong>
+            </div>
+            <div>
+              <p>液位下限:</p>
+              <strong>
+                <i @click="configFlur(1)">{{ swtchInfo.liquidDown }}</i>
+                <span>M</span>
+              </strong>
+            </div>
+          </div>
+          <div class="config-box">
+            <div class="config-item">
+              <h6>回用泵</h6>
+              <div v-show="isShowBtns">
+                <i
+                  :class="{ active: swtchInfo.reusePumpOperation }"
+                  class="button btn-open"
+                  @click="remoteWriting('V1001.0', 1)"
+                  >启动</i
+                >
+              </div>
+              <div v-show="isShowBtns">
+                <i class="button btn-close" @click="remoteWriting('V1001.0', 0)"
+                  >停止</i
+                >
+              </div>
+              <div>
+                <p v-if="swtchInfo.reusePumpOperation">运行</p>
+                <p class="error" v-else-if="swtchInfo.error1">故障</p>
+                <p v-else>停机</p>
+                <img
+                  v-if="swtchInfo.reusePumpOperation"
+                  src="../assets/images/config/btn2-active.gif"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../assets/images/config/btn-closed.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="config-item">
+              <h6>排空泵</h6>
+              <div v-show="isShowBtns">
+                <i
+                  :class="{ active: swtchInfo.reusePumpOperation2 }"
+                  class="button btn-open"
+                  @click="remoteWriting('V1001.1', 1)"
+                  >启动</i
+                >
+              </div>
+              <div v-show="isShowBtns">
+                <i class="button btn-close" @click="remoteWriting('V1001.1', 0)"
+                  >停止</i
+                >
+              </div>
+              <div>
+                <p v-if="swtchInfo.reusePumpOperation2">运行</p>
+                <p class="error" v-else-if="swtchInfo.error2">故障</p>
+                <p v-else>停机</p>
+                <img
+                  v-if="swtchInfo.reusePumpOperation2"
+                  src="../assets/images/config/btn2-active.gif"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../assets/images/config/btn-closed.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="config-item">
+              <h6>调储泵</h6>
+              <div v-show="isShowBtns">
+                <i
+                  :class="{ active: swtchInfo.reusePumpOperation6 }"
+                  class="button btn-open"
+                  @click="remoteWriting('V1001.5', 1)"
+                  >启动</i
+                >
+              </div>
+              <div v-show="isShowBtns">
+                <i class="button btn-close" @click="remoteWriting('V1001.5', 0)"
+                  >停止</i
+                >
+              </div>
+              <div>
+                <p v-if="swtchInfo.reusePumpOperation6">运行</p>
+                <p class="error" v-else-if="swtchInfo.error5">故障</p>
+                <p v-else>停机</p>
+                <img
+                  v-if="swtchInfo.reusePumpOperation6"
+                  src="../assets/images/config/btn2-active.gif"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../assets/images/config/btn-closed.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="config-item">
+              <h6>过滤器</h6>
+              <div v-show="isShowBtns">
+                <i
+                  :class="{ active: swtchInfo.reusePumpOperation3 }"
+                  class="button btn-open"
+                  @click="remoteWriting('V1001.2', 1)"
+                  >启动</i
+                >
+              </div>
+              <div v-show="isShowBtns">
+                <i class="button btn-close" @click="remoteWriting('V1001.2', 0)"
+                  >停止</i
+                >
+              </div>
+              <div>
+                <p v-if="swtchInfo.reusePumpOperation3">运行</p>
+                <p v-else>停机</p>
+                <img
+                  v-if="swtchInfo.reusePumpOperation3"
+                  src="../assets/images/config/btn2-active.gif"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../assets/images/config/btn-closed.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="config-item">
+              <h6>消毒器</h6>
+              <div v-show="isShowBtns">
+                <i
+                  :class="{ active: swtchInfo.reusePumpOperation7 }"
+                  class="button btn-open"
+                  @click="remoteWriting('V1001.3', 1)"
+                  >启动</i
+                >
+              </div>
+              <div v-show="isShowBtns">
+                <i class="button btn-close" @click="remoteWriting('V1001.3', 0)"
+                  >停止</i
+                >
+              </div>
+              <div>
+                <p v-if="swtchInfo.reusePumpOperation7">运行</p>
+                <p v-else>停机</p>
+                <img
+                  v-if="swtchInfo.reusePumpOperation7"
+                  src="../assets/images/config/btn2-active.gif"
+                  alt=""
+                />
+                <img
+                  v-else
+                  src="../assets/images/config/btn-closed.png"
+                  alt=""
+                />
+              </div>
+            </div>
+            <div class="config-item">
+              <h6>补水阀</h6>
+              <div v-show="isShowBtns">
+                <i
+                  :class="{ active: swtchInfo.reusePumpOperation4 }"
+                  class="button btn-open"
+                  @click="remoteWriting('V1001.4', 1)"
+                  >打开</i
+                >
+              </div>
+              <div v-show="isShowBtns">
+                <i class="button btn-close" @click="remoteWriting('V1001.4', 0)"
+                  >关闭</i
+                >
+              </div>
+              <div>
+
+                <p class="error" v-if="swtchInfo.error3">故障</p>
+                <p v-else-if="swtchInfo.reusePumpOperation4">开位</p>
+                <p v-else-if="swtchInfo.reusePumpOperation5">关位</p>
+                <img
+                  v-if="swtchInfo.reusePumpOperation4"
+                  src="../assets/images/config/btn2-active.gif"
+                  alt=""
+                />
+                <img
+                  v-if="swtchInfo.reusePumpOperation5"
+                  src="../assets/images/config/btn-closed.png"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+          <div class="header">
+            <i
+              :class="{ active: !isShowBtns }"
+              @click="remoteWriting('V1000.0', 1)"
+              >远程</i
+            >
+            <i
+              :class="{ active: isShowBtns }"
+              @click="remoteWriting('V1000.0', 0)"
+              >就地</i
+            >
+          </div>
+          <div class="header">
+            <i
+              :class="{ active: !isSingleContral }"
+              @click="remoteWriting('V1000.1', 1)"
+              >联动控制</i
+            >
+            <i
+              :class="{ active: isSingleContral }"
+              @click="remoteWriting('V1000.1', 0)"
+              >单独控制</i
+            >
+            <!-- <i
+              v-if="
+                swtchInfo.error1 ||
+                swtchInfo.error2 ||
+                swtchInfo.error3 ||
+                swtchInfo.error5
+              "
+              @touchstart="remoteWriting('V1000.2', 1)"
+              @touchend="remoteWriting('V1000.2', 0)"
+              >故障复位</i
+            > -->
+            <i
+              v-if="
+                swtchInfo.error1 ||
+                swtchInfo.error2 ||
+                swtchInfo.error3 ||
+                swtchInfo.error5
+              "
+              @touchstart="remoteWriting('V1000.2', 1)"
+              >故障复位</i
+            >
+          </div>
+        </div>
       </div>
       <div class="footer-page">
         <ul v-if="newsList">
           <li>
             <i></i>
             <span>
-              <marquee behavior="scroll" direction="left">{{newsList.news1}}</marquee>
+              <marquee behavior="scroll" direction="left">{{
+                newsList.news1
+              }}</marquee>
             </span>
           </li>
           <li>
             <i></i>
             <span>
-              <marquee behavior="scroll" direction>{{newsList.news2}}</marquee>
+              <marquee behavior="scroll" direction>{{
+                newsList.news2
+              }}</marquee>
             </span>
           </li>
           <li>
             <i></i>
             <span>
-              <marquee behavior direction>{{newsList.news3}}</marquee>
+              <marquee behavior direction>{{ newsList.news3 }}</marquee>
             </span>
           </li>
         </ul>
-        <img v-if="loginInfo.status !==1" src="../assets/images/display/erweima.png" alt />
+        <img
+          v-if="loginInfo.status !== 1"
+          src="../assets/images/display/erweima.png"
+          alt
+        />
         <img
           class="icon-enter"
-          v-if="loginInfo.status ===1"
+          v-if="loginInfo.status === 1"
           src="../assets/images/display/icon-inter.png"
           alt
           @click="goLoginPage"
@@ -231,19 +676,119 @@
       </div>
     </div>
     <div
-      v-if="loginInfo.status===2"
+      v-if="loginInfo.status === 2"
       class="login-out"
-      @click="loginInfo.status=1;clearTimeoutToken()"
-    >返回</div>
-    <div
-      v-if="loginInfo.status===3"
-      class="login-out"
-      @click="loginInfo.status=2;addTimeoutTken()"
-    >退出</div>
-    <div class="charge-box">
-      <span>85%</span>
-      <i></i>
+      @click="
+        loginInfo.status = 1;
+        clearTimeoutToken();
+      "
+    >
+      返回
     </div>
+    <div
+      v-if="loginInfo.status === 4"
+      class="login-out"
+      @click="
+        loginInfo.status = 3.1;
+        clearTimeoutToken();
+      "
+    >
+      返回
+    </div>
+
+    <div
+      v-if="loginInfo.status === 3.1 || loginInfo.status === 3.2"
+      class="login-out"
+      @click="goLoginPage"
+    >
+      退出
+    </div>
+    <div class="charge-box" @click="toggleFullScreen">
+      <div
+        v-if="loginInfo.status === 4 || loginInfo.status === 2"
+        class="login-out"
+      >
+        切换屏幕
+      </div>
+    </div>
+    <el-dialog
+      width="600px"
+      title="液位配置"
+      :visible.sync="dialogTableVisible"
+    >
+      <div class="password-box" v-if="configType === 1">
+        <el-input
+          width="300px"
+          placeholder="请输入液位下限"
+          v-model="fluVlue"
+        ></el-input>
+      </div>
+      <div class="password-box" v-if="configType === 2">
+        <el-input
+          width="300px"
+          placeholder="请输入液位上限"
+          v-model="fluVlue"
+        ></el-input>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogTableVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmPassword">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      width="600px"
+      title="频率设置"
+      :visible.sync="dialogFrequencyVlueVisible"
+    >
+      <div class="password-box">
+        <el-input
+          width="300px"
+          placeholder="请输入频率"
+          v-model="frequencyVlue2"
+        ></el-input>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogFrequencyVlueVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmFrequency">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      width="600px"
+      title="压力设置"
+      :visible.sync="dialogPressureVlueVisible"
+    >
+      <div class="password-box">
+        <el-input
+          width="300px"
+          placeholder="请输入压力"
+          v-model="pressureVlue2"
+        ></el-input>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogPressureVlueVisible = false">取 消</el-button>
+        <el-button type="primary" @click="configPressureValue">确 定</el-button>
+      </div>
+    </el-dialog>
+    <el-dialog
+      width="600px"
+      title="权限验证"
+      :visible.sync="dialogAccessVisible"
+    >
+      <div class="password-box">
+        <el-input
+          width="300px"
+          placeholder="请输入密码"
+          v-model="password"
+          show-password
+        ></el-input>
+      </div>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="dialogAccessVisible = false">取 消</el-button>
+        <el-button type="primary" @click="confirmAccessPassword(3.1)"
+          >确 定</el-button
+        >
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -256,23 +801,35 @@ export default {
       // 轮播图的状态1：图片播放；2：视频播放
       bannerStatus: 1,
       loginInfo: {
-        // 1:屏保；2：登录页；3：已经登录
+        // 1:屏保；2：登录页；3：已经登录 4:配置页
         status: 1,
         // 1:停止；2：手动；3：自动
         runningStatus: 2,
       },
+      // 业主配置页信息
+      ownerConfigPageStatus: {
+        "V1000.4": false,
+        "V1000.6": false,
+        "V1000.5": false,
+        "V1000.7": false,
+        "V1001.6": false,
+        "V1001.7": false,
+      },
+      // 密码验证框
+      dialogAccessVisible: false,
+      password: "",
       chartData: {
         columns: ["city", "percent"],
         rows: [
           {
-            city: "累计净水量",
+            city: "水池水量",
             percent: 0.6,
           },
         ],
       },
       chartSettings: {
         seriesMap: {
-          累计净水量: {
+          水池水量: {
             color: ["#74FC9E"],
             period: "1500",
             radius: "100%",
@@ -281,7 +838,7 @@ export default {
             },
             emphasis: {
               itemStyle: {
-                opacity: 0.8,
+                opacity: 0.5,
               },
             },
             backgroundStyle: {
@@ -290,7 +847,7 @@ export default {
             label: {
               formatter(options) {
                 const { seriesName, value } = options;
-                return `${seriesName}\n1256.3m³`;
+                return `${seriesName}\n${(value *5* 52).toFixed(1)}m³`;
               },
               fontSize: 15,
               color: "green",
@@ -345,7 +902,7 @@ export default {
         sources: [
           {
             type: "video/mp4",
-            src: "./static/video/2019.12.25 泰宁中文修改版.mp4", //url地址
+            src: "./static/video/北京泰宁宣传视频001.mp4", //url地址
           },
         ],
         poster: "", // 你的封面地址
@@ -360,10 +917,116 @@ export default {
       },
       // 回到屏保的timeoutToken
       timeoutToken: null,
-      newsList:null
+      newsList: {
+        news1:
+          "中共中央政治局常务委员会召开会议 研究部署防汛救灾工作 中共中央总书记习近平主持会议 中共中央政治局常务委员会7月17日召开会议，研究部署防汛救灾工作。中共中央总书记习近平主持会议并发表重要讲话。",
+        news2:
+          "中共中央政治局常务委员会召开会议 研究部署防汛救灾工作 中共中央总书记习近平主持会议",
+        news3:
+          "北京泰宁科创雨水利用技术股份有限公司，北京市昌平区科技园区双营西路90号，4006-501-510",
+      },
+      // 配置参数
+      swtchInfo: {
+        reusePumpOperation: false,
+        reusePumpOperation2: false,
+        reusePumpOperation3: false,
+        reusePumpOperation4: false,
+        reusePumpOperation5: false,
+        reusePumpOperation6: false,
+        reusePumpOperation7: false,
+        reusePumpOperation8: false,
+        error1: false,
+        error2: false,
+        error3: false,
+        error5: false,
+        flow: "",
+        liquidLevel: "",
+        frequency: "",
+        liquidDown: "",
+        liquidUp: "",
+        pressure: "",
+        // 年雨水利用量
+        yearTotalRain: "",
+        // 累计雨水利用量
+        yearTotalUsed: "",
+      },
+      dialogTableVisible: false,
+      // 1：液位下限  2:液位上限
+      configType: 1,
+      dialogFrequencyVlueVisible: false,
+      fluVlue: "",
+      dialogPressureVlueVisible: false,
+      frequencyVlue: "",
+      frequencyVlue2: "",
+      pressureVlue: "",
+      pressureVlue2: "",
+      // 是否是远程控制
+      isShowBtns: true,
+      isSingleContral: true,
+      configTimerToken: null,
+      // 是否全屏
+      isFullScreen: false,
     };
   },
   methods: {
+    getInfo() {
+      let that = this;
+      httpService.getInfo(function (response) {
+        if (response && response.data) {
+          that.swtchInfo.reusePumpOperation =
+            response.data["V1004.0"] === "1" ? true : false;
+          that.swtchInfo.reusePumpOperation2 =
+            response.data["V1004.1"] === "1" ? true : false;
+          // 过滤器
+          that.swtchInfo.reusePumpOperation3 =
+            response.data["V1004.2"] === "1" ? true : false;
+          that.swtchInfo.reusePumpOperation4 =
+            response.data["V1004.5"] === "1" ? true : false;
+          that.swtchInfo.reusePumpOperation5 =
+            response.data["V1004.6"] === "1" ? true : false;
+          // 调蓄泵
+          that.swtchInfo.reusePumpOperation6 =
+            response.data["V1005.2"] === "1" ? true : false;
+          // 消毒器
+          that.swtchInfo.reusePumpOperation7 =
+            response.data["V1005.1"] === "1" ? true : false;
+
+          // 回用泵故障
+          that.swtchInfo.error1 =
+            response.data["V1004.3"] === "1" ? true : false;
+          // 排空泵故障
+          that.swtchInfo.error2 =
+            response.data["V1004.4"] === "1" ? true : false;
+          // 补水阀故障
+          that.swtchInfo.error3 =
+            response.data["V1004.7"] === "1" ? true : false;
+          // 调蓄泵故障
+          that.swtchInfo.error5 =
+            response.data["V1005.3"] === "1" ? true : false;
+
+          that.swtchInfo.flow = response.data["VD1012"];
+          // 液位
+          that.swtchInfo.liquidLevel = response.data["VD1008"];
+          // 液位比例
+          that.chartData.rows[0].percent =
+            Number(that.swtchInfo.liquidLevel) / 5;
+          that.swtchInfo.frequency = response.data["VD1016"];
+          that.swtchInfo.liquidDown = response.data["VW1032"];
+          that.swtchInfo.liquidUp = response.data["VW1034"];
+          // 压力
+          that.swtchInfo.pressure = response.data["VD1020"];
+          that.pressureVlue = response.data["VW1036"];
+
+          // 频率设定
+          that.frequencyVlue = response.data["VW1038"];
+
+          // 年雨水利用量
+          that.swtchInfo.yearTotalRain = response.data["VD1024"];
+          // 累计雨水利用量
+          that.swtchInfo.yearTotalUsed = response.data["VD1028"];
+        }
+      });
+    },
     // 获取当天天气
     getNowweather() {
       let that = this;
@@ -437,19 +1100,39 @@ export default {
     goLoginPage() {
       this.loginInfo.status = 2;
       this.addTimeoutTken();
+      if (this.configTimerToken) {
+        clearInterval(this.configTimerToken);
+      }
+      // this.$router.push({
+      //   name:"Demo"
+      // })
     },
-    login() {
-      this.loginInfo.status = 3;
+    login() {},
+    ownerLogin() {
+      this.dialogAccessVisible = true;
+    },
+    confirmAccessPassword(status) {
+      if (this.password === "1234") {
+        this.dialogAccessVisible = false;
+        this.loginInfo.status = status;
+        this.addTimeoutTken();
+        this.password = "";
+      } else {
+        this.$message({
+          message: "密码错误，请重新输入！",
+          type: "warning",
+        });
+      }
+    },
+    visitorsLogin() {
+      this.loginInfo.status = 3.2;
+      this.getInfo();
       this.addTimeoutTken();
     },
     goScreen() {
       this.bannerStatus = 1;
       this.loginInfo.status = 1;
       this.clearTimeoutToken();
-    },
-    goHomePage() {
-      this.loginInfo.status = 3;
-      this.addTimeoutTken();
     },
     timeFormate(timeStamp) {
       let year = new Date(timeStamp).getFullYear();
@@ -543,6 +1226,185 @@ export default {
         this.loginInfo.status = 1;
       }, 180000);
       console.log("开启新的定时器");
+    },
+    // 去配置页
+    goToConfig() {
+      this.loginInfo.status = 4;
+      this.addTimeoutTken();
+      this.getInfo();
+      this.configTimerToken = setInterval(() => {
+        this.getInfo();
+      }, 5000);
+    },
+    // 写入数据
+    remoteWriting(tag, val) {
+      this.addTimeoutTken();
+      if (tag === "V1000.0" && val === 1) {
+        this.isShowBtns = false;
+      } else if (tag === "V1000.0" && val === 0) {
+        this.isShowBtns = true;
+      } else if (tag === "V1000.1" && val === 0) {
+        this.isSingleContral = true;
+      } else if (tag === "V1000.1" && val === 1) {
+        this.isSingleContral = false;
+      }
+      httpService.remoteWriting(tag, val, () => {
+        setTimeout(() => {
+          this.getInfo();
+        }, 2000);
+      });
+    },
+    // 批量写入数据
+    remoteWritingList(tag, val) {
+      if (this.ownerConfigPageStatus[tag]) {
+        return;
+      } else {
+        this.remoteWriting(tag, val);
+        for (const key in this.ownerConfigPageStatus) {
+          if (Object.hasOwnProperty.call(this.ownerConfigPageStatus, key)) {
+            const item = this.ownerConfigPageStatus[key];
+            if (item) {
+              if (tag === key) {
+                continue;
+              }
+              this.remoteWriting(key, 0);
+              this.ownerConfigPageStatus[key] = false;
+            }
+          }
+        }
+        this.ownerConfigPageStatus[tag] = true;
+
+      }
+    },
+    stopRainBack() {
+      if (this.ownerConfigPageStatus["V1000.4"]) {
+        this.remoteWriting("V1000.4", 0);
+        this.ownerConfigPageStatus["V1000.4"] = false;
+      }
+      if (this.ownerConfigPageStatus["V1000.5"]) {
+        this.remoteWriting("V1000.5", 0);
+        this.ownerConfigPageStatus["V1000.5"] = false;
+      }
+      if (this.ownerConfigPageStatus["V1000.6"]) {
+        this.remoteWriting("V1000.6", 0);
+        this.ownerConfigPageStatus["V1000.6"] = false;
+      }
+      if (this.ownerConfigPageStatus["V1000.7"]) {
+        this.remoteWriting("V1000.7", 0);
+        this.ownerConfigPageStatus["V1000.7"] = false;
+      }
+    },
+    stopWaterCheck() {
+      if (this.ownerConfigPageStatus["V1001.6"]) {
+        this.remoteWriting("V1001.6", 0);
+        this.ownerConfigPageStatus["V1001.6"] = false;
+      }
+      if (this.ownerConfigPageStatus["V1001.7"]) {
+        this.remoteWriting("V1001.7", 0);
+        this.ownerConfigPageStatus["V1001.7"] = false;
+      }
+    },
+    // 液位设定
+    configFlur(type) {
+      if (!this.isShowBtns) {
+        return;
+      }
+      this.fluVlue = "";
+      this.configType = type;
+      this.dialogTableVisible = true;
+    },
+    confirmPassword() {
+      this.dialogTableVisible = false;
+      if (this.fluVlue) {
+        let value = Number(Number(this.fluVlue).toFixed(2));
+        if (this.configType === 1) {
+          this.remoteWriting("VW1032", value);
+        } else if (this.configType === 2) {
+          this.remoteWriting("VW1034", value);
+        }
+      }
+    },
+    // 频率设定
+    configfrequency() {
+      if (!this.isShowBtns) {
+        return;
+      }
+      this.frequencyVlue2 = "";
+      this.dialogFrequencyVlueVisible = true;
+    },
+    confirmFrequency() {
+      this.dialogFrequencyVlueVisible = false;
+      if (this.frequencyVlue2) {
+        let value = Number(Number(this.frequencyVlue2).toFixed(1));
+        this.remoteWriting("VW1038", value);
+      }
+    },
+    configPressure() {
+      if (!this.isShowBtns) {
+        return;
+      }
+      this.pressureVlue2 = "";
+      this.dialogPressureVlueVisible = true;
+    },
+    configPressureValue() {
+      this.dialogPressureVlueVisible = false;
+      if (this.pressureVlue2) {
+        let value = Number(Number(this.pressureVlue2).toFixed(1));
+        this.remoteWriting("VW1036", value);
+      }
+    },
+    toggleFullScreen() {
+      if (this.isFullScreen) {
+        this.exitFullscreen();
+        this.isFullScreen = false;
+      } else {
+        this.toFullScreen();
+        this.isFullScreen = true;
+      }
+    },
+    // 全屏
+    toFullScreen() {
+      let el = document.documentElement;
+      let rfs =
+        el.requestFullScreen ||
+        el.webkitRequestFullScreen ||
+        el.mozRequestFullScreen ||
+        el.msRequestFullScreen;
+
+      //typeof rfs != "undefined" && rfs
+      if (rfs) {
+        rfs.call(el);
+      } else if (typeof window.ActiveXObject !== "undefined") {
+        //for IE，这里其实就是模拟了按下键盘的F11，使浏览器全屏
+        let wscript = new ActiveXObject("WScript.Shell");
+        if (wscript != null) {
+          wscript.SendKeys("{F11}");
+        }
+      } else {
+        alert("浏览器不支持全屏");
+      }
+    },
+    // 退出全屏
+    exitFullscreen() {
+      let el = parent.document;
+      let cfs =
+        el.cancelFullScreen ||
+        el.webkitCancelFullScreen ||
+        el.mozCancelFullScreen ||
+        el.exitFullScreen;
+
+      //typeof cfs != "undefined" && cfs
+      if (cfs) {
+        cfs.call(el);
+      } else if (typeof window.ActiveXObject !== "undefined") {
+        //for IE，这里和fullScreen相同，模拟按下F11键退出全屏
+        let wscript = new ActiveXObject("WScript.Shell");
+        if (wscript != null) {
+          wscript.SendKeys("{F11}");
+        }
+      } else {
+        alert("切换失败,可尝试Esc退出");
+      }
     },
   },
   computed: {

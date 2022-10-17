@@ -1,5 +1,5 @@
 import axios from "axios";
-let host = 'http://39.105.94.5:8092';
+let host = 'http://127.0.0.1:8080';
 let httpServe = axios.create();
 function nowWeather(returnFun) {
     let resultInfo = {
@@ -82,7 +82,32 @@ function getNews(returnFun) {
         }
     });
 }
-function test1() {
+
+// --------------开关数值按钮---------------
+// 远程（写入）
+function remoteWriting(tag, val, retureFun) {
+    let resultInfo = {
+        success: false,
+        data: null,
+        msg: ''
+    }
+
+    httpServe({
+        method: "get",
+        url: host + `/dataProcess/WriteData?tag=${tag}&value=${val}`
+    }).then(function (response) {
+        debugger
+        if (retureFun) {
+            retureFun(response);
+        }
+    }).catch(function (res) {
+        if (retureFun) {
+            retureFun(res);
+        }
+    })
+}
+// 远程（读取）
+function getInfo(retureFun) {
     let resultInfo = {
         success: false,
         data: null,
@@ -90,46 +115,23 @@ function test1() {
     }
     httpServe({
         method: "get",
-        url: "/dataProcess/GetRealTimeData"
+        url: host + "/dataProcess/GetRealTimeData"
     }).then(function (response) {
-        let msg = JSON.stringify(msg);
-        alert(msg);
-    });
+        if (retureFun) {
+            retureFun(response);
+        }
+    }).catch(function (res) {
+        if (retureFun) {
+            retureFun(res);
+        }
+    })
 }
-function test2() {
-    let resultInfo = {
-        success: false,
-        data: null,
-        msg: ''
-    }
-    httpServe({
-        method: "get",
-        url: "/dataProcess/WriteData?tag=M0.0&value=1"
-    }).then(function (response) {
-        let msg = JSON.stringify(msg);
-        alert(msg);
-    });
-}
-function test3() {
-    let resultInfo = {
-        success: false,
-        data: null,
-        msg: ''
-    }
-    httpServe({
-        method: "get",
-        url: "/dataProcess/GetHistoryData?startDate=2020-07-14&endDate=2020-07-15&interval=2"
-    }).then(function (response) {
-        let msg = JSON.stringify(msg);
-        alert(msg);
-    });
-}
+
 export default {
-    test1,
-    test2,
-    test3,
     nowWeather,
     fultherWeather,
     threeDaysWeather,
-    getNews
+    getNews,
+    remoteWriting,
+    getInfo
 }
